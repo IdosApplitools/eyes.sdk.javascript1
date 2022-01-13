@@ -35,6 +35,12 @@ type CheckSettingsSpec<TElement = unknown, TSelector = unknown> = {
   isSelector(value: any): value is TSelector
 }
 
+type LazyLoadOptions = {
+  scrollLength?: number
+  waitingTime?: number
+  pageHeight?: number
+}
+
 export type CheckSettings<TElement, TSelector> = {
   name?: string
   region?: RegionReference<TElement, TSelector>
@@ -593,6 +599,15 @@ export class CheckSettingsFluent<TElement = unknown, TSelector = unknown> {
   waitBeforeCapture(waitBeforeCapture: number): this {
     utils.guard.isNumber(waitBeforeCapture, {name: 'waitBeforeCapture'})
     this._settings.waitBeforeCapture = waitBeforeCapture
+    return this
+  }
+
+  lazyLoad(options: LazyLoadOptions): this {
+    this._settings.lazyLoad = {
+      scrollLength: options && options.scrollLength || 300,
+      waitingTime: options && options.scrollLength || 2000,
+      pageHeight: options && options.scrollLength || 15000
+    }
     return this
   }
 

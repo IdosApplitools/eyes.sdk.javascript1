@@ -36,4 +36,25 @@ describe('CheckSettings', () => {
     const checkSettings = new CheckSettings().waitBeforeCapture(1000)
     assert.equal(checkSettings.toJSON().waitBeforeCapture, 1000)
   })
+
+  it('set lazyLoad with sensible defaults', () => {
+    const checkSettings = new CheckSettings().lazyLoad()
+    const lazyLoad = checkSettings.toJSON().lazyLoad
+    assert.equal(lazyLoad.scrollLength, 300)
+    assert.equal(lazyLoad.waitingTime, 2000)
+    assert.equal(lazyLoad.pageHeight, 15000)
+  })
+
+  it('set lazyLoad', () => {
+    const options = {
+      scrollLength: 1,
+      waitingTime: 1,
+      pageHeight: 1
+    }
+    const checkSettings = new CheckSettings().lazyLoad(options)
+    const lazyLoad = checkSettings.toJSON().lazyLoad
+    assert.equal(lazyLoad.scrollLength, 1)
+    assert.equal(lazyLoad.waitingTime, 1)
+    assert.equal(lazyLoad.pageHeight, 1)
+  })
 })
