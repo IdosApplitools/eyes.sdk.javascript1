@@ -48,13 +48,13 @@ describe('CheckSettings', () => {
   it('set lazyLoad', () => {
     const options = {
       scrollLength: 1,
-      waitingTime: 1,
-      pageHeight: 1
+      waitingTime: 2,
+      pageHeight: 3
     }
     const checkSettings = new CheckSettings().lazyLoad(options)
     const lazyLoad = checkSettings.toJSON().lazyLoad
     assert.equal(lazyLoad.scrollLength, 1)
-    assert.equal(lazyLoad.waitingTime, 1)
-    assert.equal(lazyLoad.pageHeight, 1)
+    assert.equal(lazyLoad.waitingTime, 2)
+    assert.equal(lazyLoad.pageHeight, 3)
   })
 })
