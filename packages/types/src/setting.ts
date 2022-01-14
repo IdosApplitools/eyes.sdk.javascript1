@@ -6,6 +6,7 @@ import {
   AccessibilityGuidelinesVersion,
   AccessibilityLevel,
   Proxy,
+  LazyLoadOptions,
 } from './data'
 
 type RegionReference<TElement, TSelector> = Region | ElementReference<TElement, TSelector>
@@ -74,6 +75,7 @@ export type CheckSettings<TElement, TSelector> = MatchSettings<RegionReference<T
     renderId?: string
     variationGroupId?: string
     timeout?: number
+    lazyLoad?: LazyLoadOptions
   }
 
 export type OCRExtractSettings<TElement, TSelector> = {

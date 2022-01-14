@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- add `lazyLoad` property to `CheckSettings` along with the `LazyLoadOptions` data type
 
 ## 1.0.23 - 2021/12/22
 
