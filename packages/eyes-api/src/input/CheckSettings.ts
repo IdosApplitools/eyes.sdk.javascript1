@@ -3,6 +3,7 @@ import * as utils from '@applitools/utils'
 import {AccessibilityRegionType, AccessibilityRegionTypeEnum} from '../enums/AccessibilityRegionType'
 import {MatchLevel, MatchLevelEnum} from '../enums/MatchLevel'
 import {Region, LegacyRegion} from './Region'
+import {LazyLoadOptions} from './LazyLoadOptions'
 
 type RegionReference<TElement, TSelector> = Region | ElementReference<TElement, TSelector>
 
@@ -33,12 +34,6 @@ type AccessibilityRegionReference<TElement, TSelector> = {
 type CheckSettingsSpec<TElement = unknown, TSelector = unknown> = {
   isElement(value: any): value is TElement
   isSelector(value: any): value is TSelector
-}
-
-type LazyLoadOptions = {
-  scrollLength?: number
-  waitingTime?: number
-  pageHeight?: number
 }
 
 export type CheckSettings<TElement, TSelector> = {
