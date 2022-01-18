@@ -17,7 +17,7 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
 
   for (let i = 0; i < scrollsToAttempt; i++) {
     p = p.then(() => {
-      window.scrollTo({top: scrollLength * (i + 1)})
+      window.scrollTo(0, scrollLength * (i + 1))
       log.push({
         scrollIndex: i,
         x: window.scrollX,
@@ -28,7 +28,7 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
   }
 
   return p.then(() => {
-    window.scrollTo({top: 0})
+    window.scrollTo(0, 0)
     return log
   })
 }
