@@ -1,8 +1,13 @@
 const assert = require('assert')
-const {lazyLoad, getDocumentSize} = require('../dist/index')
+const {lazyLoad} = require('../dist/index')
 
 describe('lazyLoad', () => {
   const url = 'https://applitools.github.io/demo/TestPages/SnippetsTestPage/'
+  const options = [{
+    scrollLength: 300,   // scrollLength
+    waitingTime: 10,    // waitingTime
+    pageHeight: 15000, // pageHeight
+  }]
 
   describe('chrome', () => {
     let page
@@ -15,25 +20,23 @@ describe('lazyLoad', () => {
     })
 
     it('works on a page that can scroll', async () => {
-      const options = {
-        scrollLength: 300,
-        waitingTime: 10,
-        pageHeight: 15000,
-      }
       await page.goto(url)
-      const {height: pageHeight} = await page.evaluate(getDocumentSize)
-      const transactionHistory = await page.evaluate(lazyLoad, [options])
+      const scrollableHeight = await page.evaluate(() => (document.documentElement.scrollHeight - document.documentElement.clientHeight))
+      const transactionHistory = await page.evaluate(lazyLoad, options)
       console.log(transactionHistory)
-      assert.deepStrictEqual(pageHeight, transactionHistory[transactionHistory.length - 1].y)
+      const scrolledHeight = transactionHistory[transactionHistory.length - 1].y
+      assert.deepStrictEqual(scrollableHeight, scrolledHeight)
       const afterScrollPosition = await page.evaluate(() => ({
         x: window.scrollX,
         y: window.scrollY,
       }))
       assert.deepStrictEqual(afterScrollPosition, {x: 0, y: 0})
-    })
-  })
+    }) })
 
-  //for (const name of ['internet explorer', 'ios safari']) {
+  //for (const name of [
+  //  'internet explorer',
+  //  //'ios safari'
+  //]) {
   //  describe(name, () => {
   //    let driver
 
@@ -44,26 +47,22 @@ describe('lazyLoad', () => {
   //      }
   //    })
 
-  //    it('specific element', async () => {
+  //    it('works on a page that can scroll', async () => {
   //      await driver.url(url)
-  //      const element = await driver.$('#scrollable')
-  //      await driver.execute(scrollTo, [element, {x: 10, y: 11}])
-  //      const offset = await driver.execute(function(element) {
-  //        return {x: element.scrollLeft, y: element.scrollTop}
-  //      }, element)
-  //      assert.deepStrictEqual(offset, {x: 10, y: 11})
-  //    })
-
-  //    it('default element', async () => {
-  //      await driver.url(url)
-  //      await driver.execute(scrollTo, [undefined, {x: 10, y: 11}])
-  //      const offset = await driver.execute(function() {
+  //      const scrollableHeight = await driver.execute(function() {
+  //        return (document.documentElement.scrollHeight - document.documentElement.clientHeight)
+  //      })
+  //      const transactionHistory = await driver.execute(lazyLoad, options)
+  //      console.log(transactionHistory)
+  //      const scrolledHeight = transactionHistory[transactionHistory.length - 1].y
+  //      assert.deepStrictEqual(scrollableHeight, scrolledHeight)
+  //      const afterScrollPosition = await driver.execute(function() {
   //        return {
-  //          x: document.documentElement.scrollLeft,
-  //          y: document.documentElement.scrollTop,
+  //          x: window.scrollX,
+  //          y: window.scrollY,
   //        }
   //      })
-  //      assert.deepStrictEqual(offset, {x: 10, y: 11})
+  //      assert.deepStrictEqual(afterScrollPosition, {x: 0, y: 0})
   //    })
   //  })
   //}

@@ -1,10 +1,8 @@
-const getDocumentSize = require('./getDocumentSize')
-
 function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
   if (!scrollLength && waitingTime && pageHeight) return
 
-  const {height: actualPageHeight} = getDocumentSize()
-  const preferredPageHeight = pageHeight < actualPageHeight ? pageHeight : actualPageHeight
+  const scrollableHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
+  const preferredPageHeight = pageHeight < scrollableHeight ? pageHeight : scrollableHeight
   const scrollsToAttempt = Math.ceil(preferredPageHeight / scrollLength)
   const log = [
     {
