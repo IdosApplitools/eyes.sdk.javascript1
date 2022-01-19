@@ -1,12 +1,12 @@
 const assert = require('assert')
-const {lazyLoad} = require('../dist/index')
+const {lazyLoad, lazyLoadPollResult} = require('../dist/index')
 
 describe('lazyLoad', () => {
   const url = 'https://applitools.github.io/demo/TestPages/SnippetsTestPage/'
   const options = [
     {
       scrollLength: 300,
-      waitingTime: 10,
+      waitingTime: 1,
       pageHeight: 15000,
     },
   ]
@@ -26,7 +26,11 @@ describe('lazyLoad', () => {
       const scrollableHeight = await page.evaluate(
         () => document.documentElement.scrollHeight - document.documentElement.clientHeight,
       )
-      const transactionHistory = await page.evaluate(lazyLoad, options)
+      await page.evaluate(lazyLoad, options)
+      let transactionHistory
+      do {
+        transactionHistory = await page.evaluate(lazyLoadPollResult)
+      } while (transactionHistory.status && transactionHistory.status === 'WIP')
       console.log(transactionHistory)
       const scrolledHeight = transactionHistory[transactionHistory.length - 1].y
       assert.deepStrictEqual(scrollableHeight, scrolledHeight)
@@ -38,10 +42,7 @@ describe('lazyLoad', () => {
     })
   })
 
-  for (const name of [
-    'internet explorer',
-    //'ios safari'
-  ]) {
+  for (const name of ['internet explorer', 'ios safari']) {
     describe(name, () => {
       let driver
 
@@ -57,14 +58,18 @@ describe('lazyLoad', () => {
         const scrollableHeight = await driver.execute(function() {
           return document.documentElement.scrollHeight - document.documentElement.clientHeight
         })
-        const transactionHistory = await driver.execute(lazyLoad, options)
+        await driver.execute(lazyLoad, options)
+        let transactionHistory
+        do {
+          transactionHistory = await driver.execute(lazyLoadPollResult)
+        } while (transactionHistory.status && transactionHistory.status === 'WIP')
         console.log(transactionHistory)
         const scrolledHeight = transactionHistory[transactionHistory.length - 1].y
-        assert.deepStrictEqual(scrollableHeight, scrolledHeight)
+        assert(scrollableHeight - options.scrollLength <= scrolledHeight <= scrollableHeight)
         const afterScrollPosition = await driver.execute(function() {
           return {
-            x: window.scrollX,
-            y: window.scrollY,
+            x: window.pageXOffset,
+            y: document.documentElement.scrollTop,
           }
         })
         assert.deepStrictEqual(afterScrollPosition, {x: 0, y: 0})
