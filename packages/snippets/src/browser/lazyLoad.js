@@ -17,17 +17,23 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight}] = []) {
         params: {scrollLength, waitingTime, pageHeight},
       },
     ]
+    const start = Date.now()
 
-    function scrollAndWait(iteration = 1) {
-      if (iteration > scrollsToAttempt) {
+    function scrollAndWait(scrollAttempt = 1) {
+      if (scrollAttempt > scrollsToAttempt) {
         window.scrollTo(0, 0)
         window[EYES_NAMESPACE][LAZY_LOAD_KEY] = log
         return
       }
       setTimeout(() => {
-        window.scrollTo(0, scrollLength * iteration)
-        log.push({iteration, x: window.pageXOffset, y: document.documentElement.scrollTop})
-        scrollAndWait(iteration + 1)
+        window.scrollTo(0, scrollLength * scrollAttempt)
+        log.push({
+          scrollAttempt,
+          x: window.pageXOffset,
+          y: document.documentElement.scrollTop,
+          msSinceStart: Date.now() - start,
+        })
+        scrollAndWait(scrollAttempt + 1)
       }, waitingTime)
     }
 
