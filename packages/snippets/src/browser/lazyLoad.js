@@ -1,6 +1,7 @@
 const EYES_NAMESPACE = '__EYES__APPLITOOLS__'
 const LAZY_LOAD_KEY = 'lazyLoadResult'
 window[EYES_NAMESPACE] = window[EYES_NAMESPACE] || {}
+const lazyLoadPollResult = require('./lazyLoadPollResult')
 
 function currentScrollPosition() {
   return {
@@ -9,8 +10,9 @@ function currentScrollPosition() {
   }
 }
 
-function lazyLoad([scrollLength, waitingTime, pageHeight] = []) {
-  if (!scrollLength && waitingTime && pageHeight) return
+function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
+  if (!scrollLength && waitingTime && pageHeight)
+    throw new Error('Incomplete set of arguments provided. Please provide scrollLength, waitingTime, and pageHeight')
 
   try {
     const startingScrollPosition = currentScrollPosition()
@@ -48,8 +50,9 @@ function lazyLoad([scrollLength, waitingTime, pageHeight] = []) {
     }
 
     scrollAndWait()
+    return lazyLoadPollResult()
   } catch (error) {
-    window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {error}
+    window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'ERROR', error}
     return error
   }
 }

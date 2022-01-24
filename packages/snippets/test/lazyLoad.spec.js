@@ -3,11 +3,11 @@ const {lazyLoad, lazyLoadPollResult} = require('../dist/index')
 
 describe('lazyLoad', () => {
   const url = 'https://applitools.github.io/demo/TestPages/SnippetsTestPage/'
-  const options = [
-    300,    // scrollLength
-    1,      // waitingTime
-    150000, // pageHeight
-  ]
+  const options = {
+    scrollLength: 300,
+    waitingTime: 1,
+    pageHeight: 150000,
+  }
 
   describe('chrome', () => {
     let page
@@ -28,10 +28,10 @@ describe('lazyLoad', () => {
       const scrollableHeight = await page.evaluate(
         () => document.documentElement.scrollHeight - document.documentElement.clientHeight,
       )
-      await page.evaluate(lazyLoad, options)
+      await page.evaluate(lazyLoad, [options])
       let result
       do {
-        result = await page.evaluate(lazyLoadPollResult)
+        result = JSON.parse(await page.evaluate(lazyLoadPollResult))
       } while (result.status && result.status === 'WIP')
       const transactionHistory = result.value
       console.log(transactionHistory)
@@ -65,10 +65,10 @@ describe('lazyLoad', () => {
         const scrollableHeight = await driver.execute(function() {
           return document.documentElement.scrollHeight - document.documentElement.clientHeight
         })
-        await driver.execute(lazyLoad, options)
+        await driver.execute(lazyLoad, [options])
         let result
         do {
-          result = await driver.execute(lazyLoadPollResult)
+          result = JSON.parse(await driver.execute(lazyLoadPollResult))
         } while (result.status && result.status === 'WIP')
         const transactionHistory = result.value
         console.log(transactionHistory)
