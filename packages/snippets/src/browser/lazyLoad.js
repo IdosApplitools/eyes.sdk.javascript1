@@ -9,7 +9,7 @@ function currentScrollPosition() {
   }
 }
 
-function lazyLoad([{scrollLength, waitingTime, pageHeight}] = []) {
+function lazyLoad([scrollLength, waitingTime, pageHeight] = []) {
   if (!scrollLength && waitingTime && pageHeight) return
 
   try {

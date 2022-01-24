@@ -4,11 +4,9 @@ const {lazyLoad, lazyLoadPollResult} = require('../dist/index')
 describe('lazyLoad', () => {
   const url = 'https://applitools.github.io/demo/TestPages/SnippetsTestPage/'
   const options = [
-    {
-      scrollLength: 300,
-      waitingTime: 1,
-      pageHeight: 15000,
-    },
+    300,    // scrollLength
+    1,      // waitingTime
+    150000, // pageHeight
   ]
 
   describe('chrome', () => {
