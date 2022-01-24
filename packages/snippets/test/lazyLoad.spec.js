@@ -29,10 +29,11 @@ describe('lazyLoad', () => {
         () => document.documentElement.scrollHeight - document.documentElement.clientHeight,
       )
       await page.evaluate(lazyLoad, options)
-      let transactionHistory
+      let result
       do {
-        transactionHistory = await page.evaluate(lazyLoadPollResult)
-      } while (transactionHistory.status && transactionHistory.status === 'WIP')
+        result = await page.evaluate(lazyLoadPollResult)
+      } while (result.status && result.status === 'WIP')
+      const transactionHistory = result.value
       console.log(transactionHistory)
       const scrolledHeight = transactionHistory[transactionHistory.length - 1].y
       assert.deepStrictEqual(scrollableHeight, scrolledHeight)
@@ -65,10 +66,11 @@ describe('lazyLoad', () => {
           return document.documentElement.scrollHeight - document.documentElement.clientHeight
         })
         await driver.execute(lazyLoad, options)
-        let transactionHistory
+        let result
         do {
-          transactionHistory = await driver.execute(lazyLoadPollResult)
-        } while (transactionHistory.status && transactionHistory.status === 'WIP')
+          result = await driver.execute(lazyLoadPollResult)
+        } while (result.status && result.status === 'WIP')
+        const transactionHistory = result.value
         console.log(transactionHistory)
         const scrolledHeight = transactionHistory[transactionHistory.length - 1].y
         assert(scrollableHeight - options.scrollLength <= scrolledHeight <= scrollableHeight)

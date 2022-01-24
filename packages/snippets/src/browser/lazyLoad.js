@@ -25,12 +25,13 @@ function lazyLoad([scrollLength, waitingTime, pageHeight] = []) {
         params: {scrollLength, waitingTime, pageHeight},
       },
     ]
+    window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {}
     const start = Date.now()
 
     function scrollAndWait(scrollAttempt = 1) {
       if (scrollAttempt > scrollsToAttempt) {
         window.scrollTo(startingScrollPosition.x, startingScrollPosition.y)
-        window[EYES_NAMESPACE][LAZY_LOAD_KEY] = log
+        window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {value: log}
         return
       }
       setTimeout(() => {
@@ -48,6 +49,7 @@ function lazyLoad([scrollLength, waitingTime, pageHeight] = []) {
 
     scrollAndWait()
   } catch (error) {
+    window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {error}
     return error
   }
 }
