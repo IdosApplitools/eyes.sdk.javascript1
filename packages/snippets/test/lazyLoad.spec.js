@@ -23,6 +23,10 @@ describe('lazyLoad', () => {
 
     it('works on a page that can scroll', async () => {
       await page.goto(url)
+      await page.evaluate(
+        () => window.scrollTo(0, 50)
+      )
+      const startingPosition = {x: 0, y: 50}
       const scrollableHeight = await page.evaluate(
         () => document.documentElement.scrollHeight - document.documentElement.clientHeight,
       )
@@ -38,7 +42,7 @@ describe('lazyLoad', () => {
         x: window.scrollX,
         y: window.scrollY,
       }))
-      assert.deepStrictEqual(afterScrollPosition, {x: 0, y: 0})
+      assert.deepStrictEqual(afterScrollPosition, startingPosition)
     })
   })
 
@@ -55,6 +59,10 @@ describe('lazyLoad', () => {
 
       it('works on a page that can scroll', async () => {
         await driver.url(url)
+        await driver.execute(function() {
+          window.scrollTo(0, 50)
+        })
+        const startingPosition = {x: 0, y: 50}
         const scrollableHeight = await driver.execute(function() {
           return document.documentElement.scrollHeight - document.documentElement.clientHeight
         })
@@ -72,7 +80,7 @@ describe('lazyLoad', () => {
             y: document.documentElement.scrollTop,
           }
         })
-        assert.deepStrictEqual(afterScrollPosition, {x: 0, y: 0})
+        assert.deepStrictEqual(afterScrollPosition, startingPosition)
       })
     })
   }
