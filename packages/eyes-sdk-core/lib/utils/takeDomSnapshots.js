@@ -14,14 +14,14 @@ async function takeDomSnapshots({
   getViewportSize,
   getEmulatedDevicesSizes,
   getIosDevicesSizes,
-  waitBeforeCapture,
+  prepareBeforeCapture,
 }) {
   const cookieJar = driver.features.allCookies ? await driver.getCookies().catch(() => []) : []
   const currentContext = driver.currentContext
 
   if (!breakpoints) {
     logger.log(`taking single dom snapshot`)
-    if (waitBeforeCapture) await waitBeforeCapture()
+    if (prepareBeforeCapture) await prepareBeforeCapture()
     const snapshot = await takeDomSnapshot(logger, currentContext, {
       onSnapshotContext: !driver.features.allCookies ? collectCookies : undefined,
       disableBrowserFetching,
@@ -52,7 +52,7 @@ async function takeDomSnapshots({
   const snapshots = Array(browsers.length)
   if (requiredWidths.has(viewportSize.width)) {
     logger.log(`taking dom snapshot for existing width ${viewportSize.width}`)
-    if (waitBeforeCapture) await waitBeforeCapture()
+    if (prepareBeforeCapture) await prepareBeforeCapture()
     const snapshot = await takeDomSnapshot(logger, currentContext, {
       disableBrowserFetching,
       showLogs,
@@ -64,8 +64,9 @@ async function takeDomSnapshots({
     logger.log(`taking dom snapshot for width ${requiredWidth}`)
     try {
       await driver.setViewportSize({width: requiredWidth, height: viewportSize.height})
-      if (waitBeforeCapture) await waitBeforeCapture()
+      if (prepareBeforeCapture) await prepareBeforeCapture()
     } catch (err) {
+      console.log(err)
       const actualViewportSize = await driver.getViewportSize()
       if (isStrictBreakpoints) {
         const failedBrowsers = browsersInfo.map(({name, width}) => `(${name}, ${width})`).join(', ')
