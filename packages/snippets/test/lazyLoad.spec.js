@@ -8,6 +8,7 @@ describe('lazyLoad', () => {
     waitingTime: 1,
     pageHeight: 150000,
   }
+  const startingPosition = {x: 10, y: 50}
 
   describe('chrome', () => {
     let page
@@ -21,10 +22,7 @@ describe('lazyLoad', () => {
 
     it('works on a page that can scroll', async () => {
       await page.goto(url)
-      await page.evaluate(
-        () => window.scrollTo(0, 50)
-      )
-      const startingPosition = {x: 0, y: 50}
+      await page.evaluate(`window.scrollTo(${startingPosition.x}, ${startingPosition.y})`)
       const scrollableHeight = await page.evaluate(
         () => document.documentElement.scrollHeight - document.documentElement.clientHeight,
       )
@@ -58,10 +56,7 @@ describe('lazyLoad', () => {
 
       it('works on a page that can scroll', async () => {
         await driver.url(url)
-        await driver.execute(function() {
-          window.scrollTo(0, 50)
-        })
-        const startingPosition = {x: 0, y: 50}
+        await driver.execute(`window.scrollTo(${startingPosition.x}, ${startingPosition.y})`)
         const scrollableHeight = await driver.execute(function() {
           return document.documentElement.scrollHeight - document.documentElement.clientHeight
         })

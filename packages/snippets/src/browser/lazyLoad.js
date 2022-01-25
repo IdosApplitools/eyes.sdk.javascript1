@@ -12,7 +12,9 @@ function currentScrollPosition() {
 
 function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
   if (!scrollLength && waitingTime && pageHeight)
-    throw new Error('Incomplete set of arguments provided. Please provide scrollLength, waitingTime, and pageHeight')
+    throw new Error(
+      'Incomplete set of arguments provided. Please provide scrollLength, waitingTime, and pageHeight',
+    )
 
   try {
     const startingScrollPosition = currentScrollPosition()
@@ -37,7 +39,7 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
         return
       }
       setTimeout(() => {
-        window.scrollTo(0, scrollLength * scrollAttempt)
+        window.scrollTo(startingScrollPosition.x, scrollLength * scrollAttempt)
         const {x, y} = currentScrollPosition()
         log.push({
           scrollAttempt,
