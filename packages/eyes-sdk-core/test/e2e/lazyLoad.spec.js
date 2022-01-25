@@ -3,17 +3,13 @@ const spec = require('@applitools/spec-driver-selenium')
 const {makeSDK} = require('../../index')
 
 describe('lazyLoad', () => {
-  let driver, destroyDriver, manager, sdk, eyes
+  let driver, destroyDriver, manager, eyes
 
-  beforeEach(async () => {
-    ;[driver, destroyDriver] = await spec.build({browser: 'chrome'})
-    sdk = makeSDK({
-      name: 'eyes-core',
-      version: require('../../package.json').version,
-      spec,
-      VisualGridClient,
-    })
-    manager = await sdk.makeManager({type: 'vg', concurrency: 5})
+  const sdk = makeSDK({
+    name: 'eyes-core',
+    version: require('../../package.json').version,
+    spec,
+    VisualGridClient,
   })
 
   afterEach(async () => {
@@ -22,27 +18,63 @@ describe('lazyLoad', () => {
     manager.closeAllEyes()
   })
 
-  it('test lazyLoad with layoutBreakpoints - checkSettings', async () => {
-    const config = {
-      appName: 'core app',
-      testName: 'lazyLoad with layoutbreakpoints - checkSettings',
-      layoutBreakpoints: true,
-      matchTimeout: 0,
-      saveNewTests: false,
-      viewportSize: {width: 800, height: 600},
-      browsersInfo: [{name: 'chrome', width: 1000, height: 600}],
-    }
-    const settings = {
-      fully: true,
-      lazyLoad: {
-        scrollLength: 300,
-        waitingTime: 500,
-        pageHeight: 15000,
-      },
-    }
-    eyes = await manager.openEyes({driver, config})
-    await driver.get('https://applitools.github.io/demo/TestPages/LazyLoad/')
-    await eyes.check({settings})
-    await eyes.close({throwErr: true})
+  describe('vg', () => {
+    beforeEach(async () => {
+      ;[driver, destroyDriver] = await spec.build({browser: 'chrome'})
+      manager = await sdk.makeManager({type: 'vg', concurrency: 5})
+    })
+
+    it('test lazyLoad with layoutBreakpoints - checkSettings', async () => {
+      const config = {
+        appName: 'core app',
+        testName: 'lazyLoad with layoutbreakpoints - checkSettings',
+        layoutBreakpoints: true,
+        matchTimeout: 0,
+        saveNewTests: false,
+        viewportSize: {width: 800, height: 600},
+        browsersInfo: [{name: 'chrome', width: 1000, height: 600}],
+      }
+      const settings = {
+        fully: true,
+        lazyLoad: {
+          scrollLength: 300,
+          waitingTime: 500,
+          pageHeight: 15000,
+        },
+      }
+      eyes = await manager.openEyes({driver, config})
+      await driver.get('https://applitools.github.io/demo/TestPages/LazyLoad/')
+      await eyes.check({settings})
+      await eyes.close({throwErr: true})
+    })
+  })
+
+  describe('classic', () => {
+    beforeEach(async () => {
+      ;[driver, destroyDriver] = await spec.build({browser: 'chrome'})
+      manager = await sdk.makeManager()
+    })
+
+    it('test lazyLoad with classic - checkSettings', async () => {
+      const config = {
+        appName: 'core app',
+        testName: 'lazyLoad with classic - checkSettings',
+        matchTimeout: 0,
+        saveNewTests: false,
+        viewportSize: {width: 800, height: 600},
+      }
+      const settings = {
+        fully: true,
+        lazyLoad: {
+          scrollLength: 300,
+          waitingTime: 500,
+          pageHeight: 15000,
+        },
+      }
+      eyes = await manager.openEyes({driver, config})
+      await driver.get('https://applitools.github.io/demo/TestPages/LazyLoad/')
+      await eyes.check({settings})
+      await eyes.close({throwErr: true})
+    })
   })
 })

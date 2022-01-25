@@ -9,6 +9,8 @@ const ClassicRunner = require('../runner/ClassicRunner')
 const takeDomCapture = require('../utils/takeDomCapture')
 const EyesCore = require('./EyesCore')
 const CheckSettingsUtils = require('./CheckSettingsUtils')
+const {lazyLoad, lazyLoadPollResult} = require('@applitools/snippets')
+const EyesUtils = require('./EyesUtils')
 
 class EyesClassic extends EyesCore {
   static specialize({agentId, cwd, spec}) {
@@ -117,6 +119,21 @@ class EyesClassic extends EyesCore {
         scale: this.getScaleRatio(),
         rotation: this.getRotation(),
       },
+      lazyLoad: this._checkSettings.lazyLoad,
+    }
+
+    if (screenshotSettings.lazyLoad) {
+      const lazyLoadOptions = screenshotSettings.lazyLoad
+      const scripts = {
+        main: {
+          script: lazyLoad,
+          args: [[lazyLoadOptions]],
+        },
+        poll: {
+          script: lazyLoadPollResult,
+        },
+      }
+      await EyesUtils.executePollScript(this._logger, this._driver, scripts)
     }
 
     let dom

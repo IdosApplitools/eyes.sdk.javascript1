@@ -3,7 +3,7 @@
 ## Unreleased
 
 - Add support for the `lazyLoad` CheckSettings option on visual grid execution
-
+- Add support for the `lazyLoad` CheckSettings option on classic execution
 
 ## 12.24.13 - 2022/1/12
 
