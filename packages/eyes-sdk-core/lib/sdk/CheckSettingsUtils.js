@@ -221,9 +221,23 @@ async function toScreenshotCheckSettings({checkSettings, context, screenshot}) {
   }
 }
 
+function makeLazyLoadOptions(input) {
+  const defaultOptions = {
+    scrollLength: 300,
+    waitingTime: 2000,
+    pageHeight: 15000,
+  }
+
+  if (!input) return
+  else if (TypeUtils.isBoolean(input) && input) return defaultOptions
+  else if (TypeUtils.isObject(input)) return Object.assign({}, defaultOptions, input)
+  else throw new Error('Invalid type provided. Provide either a boolean or object')
+}
+
 module.exports = {
   toPersistedCheckSettings,
   toCheckWindowConfiguration,
   toScreenshotCheckSettings,
   toMatchSettings,
+  makeLazyLoadOptions,
 }

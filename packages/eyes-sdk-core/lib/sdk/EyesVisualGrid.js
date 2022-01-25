@@ -159,7 +159,7 @@ class EyesVisualGrid extends EyesCore {
           checkSettings.waitBeforeCapture,
           this._configuration.getWaitBeforeCapture(),
         )
-        const lazyLoadOptions = checkSettings.lazyLoad
+        const lazyLoadOptions = CheckSettingsUtils.makeLazyLoadOptions(checkSettings.lazyLoad)
         const showLogs = this._configuration.getShowLogs()
         const {snapshots, cookies} = await takeDomSnapshots({
           browsers,

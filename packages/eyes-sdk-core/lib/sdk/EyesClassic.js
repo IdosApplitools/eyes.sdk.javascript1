@@ -119,11 +119,11 @@ class EyesClassic extends EyesCore {
         scale: this.getScaleRatio(),
         rotation: this.getRotation(),
       },
-      lazyLoad: this._checkSettings.lazyLoad,
     }
 
-    if (screenshotSettings.lazyLoad) {
-      const lazyLoadOptions = screenshotSettings.lazyLoad
+    const lazyLoadOptions = CheckSettingsUtils.makeLazyLoadOptions(this._checkSettings.lazyLoad)
+
+    if (lazyLoadOptions) {
       const scripts = {
         main: {
           script: lazyLoad,

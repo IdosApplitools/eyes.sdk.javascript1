@@ -36,11 +36,7 @@ describe('lazyLoad', () => {
       }
       const settings = {
         fully: true,
-        lazyLoad: {
-          scrollLength: 300,
-          waitingTime: 500,
-          pageHeight: 15000,
-        },
+        lazyLoad: true,
       }
       eyes = await manager.openEyes({driver, config})
       await driver.get('https://applitools.github.io/demo/TestPages/LazyLoad/')
@@ -65,11 +61,7 @@ describe('lazyLoad', () => {
       }
       const settings = {
         fully: true,
-        lazyLoad: {
-          scrollLength: 300,
-          waitingTime: 500,
-          pageHeight: 15000,
-        },
+        lazyLoad: true,
       }
       eyes = await manager.openEyes({driver, config})
       await driver.get('https://applitools.github.io/demo/TestPages/LazyLoad/')
