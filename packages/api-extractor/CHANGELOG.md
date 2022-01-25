@@ -3,6 +3,10 @@
 ## Unreleased
 
 
+## 1.2.7 - 2022/1/24
+
+- add support for mapped keys from union type
+
 ## 1.2.6 - 2022/1/11
 
 - stop using `at` method of array to be compatible with previous node versions

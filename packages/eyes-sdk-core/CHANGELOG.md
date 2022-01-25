@@ -5,6 +5,16 @@
 - Add support for the `lazyLoad` CheckSettings option on visual grid execution
 - Add support for the `lazyLoad` CheckSettings option on classic execution
 
+
+## 13.0.0 - 2022/1/19
+
+### ⚠ BREAKING CHANGES
+- change default behavior of `eyes.check` to take a full screenshot if screenshot target is a window
+
+## 12.24.14 - 2022/1/17
+
+- add better errors in case of missing/incorrect `serverUrl` or `apiKey` configurations
+
 ## 12.24.13 - 2022/1/12
 
 - handle `Driver.getCookies` error

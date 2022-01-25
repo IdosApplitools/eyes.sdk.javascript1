@@ -3,6 +3,10 @@
 ## Unreleased
 
 
+## 0.13.11 - 2022/1/19
+
+- allow headings in changelog version descriptions
+
 ## 0.13.10 - 2021/12/28
 
 - updated to @applitools/utils@1.2.11 (from 1.2.10)
