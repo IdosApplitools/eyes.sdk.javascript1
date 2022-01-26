@@ -37,24 +37,58 @@ describe('CheckSettings', () => {
     assert.equal(checkSettings.toJSON().waitBeforeCapture, 1000)
   })
 
-  it('set lazyLoad with sensible defaults', () => {
-    const checkSettings = new CheckSettings().lazyLoad()
-    const lazyLoad = checkSettings.toJSON().lazyLoad
-    assert.equal(lazyLoad.scrollLength, 300)
-    assert.equal(lazyLoad.waitingTime, 2000)
-    assert.equal(lazyLoad.pageHeight, 15000)
-  })
-
-  it('set lazyLoad', () => {
-    const options = {
-      scrollLength: 1,
-      waitingTime: 2,
-      pageHeight: 3
+  describe('lazyLoad', () => {
+    const defaultOptions = {
+      scrollLength: 300,
+      waitingTime: 2000,
+      pageHeight: 15000
     }
-    const checkSettings = new CheckSettings().lazyLoad(options)
-    const lazyLoad = checkSettings.toJSON().lazyLoad
-    assert.equal(lazyLoad.scrollLength, 1)
-    assert.equal(lazyLoad.waitingTime, 2)
-    assert.equal(lazyLoad.pageHeight, 3)
+
+    it('set lazyLoad with sensible defaults', () => {
+      const checkSettings = new CheckSettings().lazyLoad()
+      const lazyLoadOptions = checkSettings.toJSON().lazyLoad
+      assert.deepStrictEqual(lazyLoadOptions, defaultOptions)
+    })
+
+    it('set lazyLoad with user options', () => {
+      const options = {
+        scrollLength: 1,
+        waitingTime: 2,
+        pageHeight: 3
+      }
+      const checkSettings = new CheckSettings().lazyLoad(options)
+      const lazyLoadOptions = checkSettings.toJSON().lazyLoad
+      assert.deepStrictEqual(lazyLoadOptions, options)
+    })
+
+    it('set lazyLoad partial', () => {
+      let lazyLoad, checkSettings
+      checkSettings = new CheckSettings().lazyLoad({
+        scrollLength: 1,
+        waitingTime: 2,
+      })
+      lazyLoad = checkSettings.toJSON().lazyLoad
+      assert.equal(lazyLoad.scrollLength, 1)
+      assert.equal(lazyLoad.waitingTime, 2)
+      assert.equal(lazyLoad.pageHeight, defaultOptions.pageHeight)
+
+      checkSettings = new CheckSettings().lazyLoad({
+        scrollLength: 1,
+        pageHeight: 3,
+      })
+      lazyLoad = checkSettings.toJSON().lazyLoad
+      assert.equal(lazyLoad.scrollLength, 1)
+      assert.equal(lazyLoad.waitingTime, defaultOptions.waitingTime)
+      assert.equal(lazyLoad.pageHeight, 3)
+
+      checkSettings = new CheckSettings().lazyLoad({
+        waitingTime: 2,
+        pageHeight: 3,
+      })
+      lazyLoad = checkSettings.toJSON().lazyLoad
+      assert.equal(lazyLoad.scrollLength, defaultOptions.scrollLength)
+      assert.equal(lazyLoad.waitingTime, 2)
+      assert.equal(lazyLoad.pageHeight, 3)
+    })
   })
 })
