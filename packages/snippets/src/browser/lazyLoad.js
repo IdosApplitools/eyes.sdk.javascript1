@@ -27,25 +27,26 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
         userProvidedPageHeight: pageHeight,
         targetPageHeight,
         scrollsToAttempt,
-        startingScrollPosition,
+        startingScrollPositionX: startingScrollPosition.x,
+        startingScrollPositionY: startingScrollPosition.y,
       },
     ]
     window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {}
     const start = Date.now()
 
     function scrollAndWait(scrollAttempt = 1) {
-      if (scrollAttempt > scrollsToAttempt) {
-        window.scrollTo(startingScrollPosition.x, startingScrollPosition.y)
-        const {x, y} = currentScrollPosition()
-        log.push({
-          x,
-          y,
-          msSinceStart: Date.now() - start,
-        })
-        window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {value: log}
-        return
-      }
       setTimeout(() => {
+        if (scrollAttempt > scrollsToAttempt) {
+          window.scrollTo(startingScrollPosition.x, startingScrollPosition.y)
+          const {x, y} = currentScrollPosition()
+          log.push({
+            x,
+            y,
+            msSinceStart: Date.now() - start,
+          })
+          window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {value: log}
+          return
+        }
         window.scrollTo(startingScrollPosition.x, scrollLength * scrollAttempt)
         const {x, y} = currentScrollPosition()
         log.push({
