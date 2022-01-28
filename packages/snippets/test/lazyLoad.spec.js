@@ -33,7 +33,7 @@ describe('lazyLoad', () => {
       } while (result.status && result.status === 'WIP')
       const transactionHistory = result.value
       console.log(transactionHistory)
-      const scrolledHeight = transactionHistory[transactionHistory.length - 1].y
+      const scrolledHeight = transactionHistory[transactionHistory.length - 2].y
       assert.deepStrictEqual(scrollableHeight, scrolledHeight)
       const afterScrollPosition = await page.evaluate(() => ({
         x: window.scrollX,
@@ -67,7 +67,7 @@ describe('lazyLoad', () => {
         } while (result.status && result.status === 'WIP')
         const transactionHistory = result.value
         console.log(transactionHistory)
-        const scrolledHeight = transactionHistory[transactionHistory.length - 1].y
+        const scrolledHeight = transactionHistory[transactionHistory.length - 2].y
         assert(scrollableHeight - options.scrollLength <= scrolledHeight <= scrollableHeight)
         const afterScrollPosition = await driver.execute(function() {
           return {
