@@ -599,7 +599,7 @@ export class CheckSettingsFluent<TElement = unknown, TSelector = unknown> {
   }
 
   lazyLoad(options: boolean | LazyLoadOptions = true): this {
-    this._settings.lazyLoad = lazyLoad
+    this._settings.lazyLoad = options
     return this
   }
 
