@@ -62,7 +62,7 @@ export type CheckSettings<TElement, TSelector> = {
   variationGroupId?: string
   timeout?: number
   waitBeforeCapture?: number
-  lazyLoad?: LazyLoadOptions
+  lazyLoad?: boolean | LazyLoadOptions
 }
 
 export type Target<TElement, TSelector> = {
