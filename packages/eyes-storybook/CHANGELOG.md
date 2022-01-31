@@ -3,6 +3,14 @@
 ## Unreleased
 
 
+## 3.27.3 - 2022/1/26
+
+- avoid unwanted page reloading due to unknown query parameters
+- updated to @applitools/driver@1.4.9 (from 1.4.7)
+- updated to @applitools/eyes-sdk-core@13.0.0 (from 12.24.9)
+- updated to @applitools/logger@1.0.9 (from 1.0.8)
+- updated to @applitools/visual-grid-client@15.8.62 (from 15.8.55)
+
 ## 3.27.2 - 2021/12/23
 
 - updated to @applitools/driver@1.4.7 (from 1.4.5)
