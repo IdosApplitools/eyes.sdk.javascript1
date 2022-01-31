@@ -598,12 +598,8 @@ export class CheckSettingsFluent<TElement = unknown, TSelector = unknown> {
     return this
   }
 
-  lazyLoad(options: LazyLoadOptions): this {
-    this._settings.lazyLoad = {
-      scrollLength: options?.scrollLength ?? 300,
-      waitingTime: options?.waitingTime ?? 2000,
-      pageHeight: options?.pageHeight ?? 15000
-    }
+  lazyLoad(options: boolean | LazyLoadOptions = true): this {
+    this._settings.lazyLoad = lazyLoad
     return this
   }
 
