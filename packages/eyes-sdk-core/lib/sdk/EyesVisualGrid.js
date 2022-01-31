@@ -184,7 +184,9 @@ class EyesVisualGrid extends EyesCore {
                   script: lazyLoadPollResult,
                 },
               }
-              await EyesUtils.executePollScript(this._logger, this._driver, scripts)
+              await EyesUtils.executePollScript(this._logger, this._driver, scripts, {
+                pollTimeout: lazyLoadOptions.waitingTime,
+              })
             }
           },
         })
