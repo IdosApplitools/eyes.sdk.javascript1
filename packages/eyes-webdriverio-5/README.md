@@ -348,6 +348,33 @@ eyes.check(Target.window().variationGroupId('Login button on the right'))
 
 _For more information, visit our documentation page: https://applitools.com/docs/features/baseline-variations-groups.html_
 
+##### Lazy loading (`lazyLoad`)
+
+It's possible to have the SDK scroll the entire page (or a specific length of the page) to make sure all lazyily loaded assets are on the page before performing a check.
+
+```js
+// lazy loads with sensible defaults
+eyes.check(Target.window().lazyLoad())
+
+// lazy loads with options specified
+eyes.check(Target.window().lazyLoad({
+  pageHeight: 1000,   // total pixels of the page to be scrolled
+  scrollLength: 250,  // amount of pixels to use for each scroll attempt
+  waitingTime: 500,   // milliseconds to wait in-between each scroll attempt
+}))
+```
+
+Possible input types are:
+
+- nothing (enables sensible defaults)
+- options object (`{pageHeight, waitingTime, scrollLength}`)
+
+Other details:
+
+- If an option is omitted, the sensible default for that value will be used
+- `lazyLoad` determines the page's scrollable height automatically
+- If the page's scrollable height is greater than the provided `pageHeight`, then the scrollable height will be used
+
 ###### Other checkSettings configuration
 
 <!-- TODO add explanation -->
