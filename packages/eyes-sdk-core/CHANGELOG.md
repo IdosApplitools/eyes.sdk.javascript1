@@ -5,6 +5,8 @@
 - Add support for the `lazyLoad` CheckSettings option on visual grid execution
 - Add support for the `lazyLoad` CheckSettings option on classic execution
 
+### 🐛 BUG FIX
+- fix window fully screenshot on native apps was taking screenshot of scrollable element, instead of a whole window
 
 ## 13.0.0 - 2022/1/19
 
