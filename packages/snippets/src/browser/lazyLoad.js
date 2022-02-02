@@ -3,6 +3,7 @@ const LAZY_LOAD_KEY = 'lazyLoadResult'
 window[EYES_NAMESPACE] = window[EYES_NAMESPACE] || {}
 const lazyLoadPollResult = require('./lazyLoadPollResult')
 const currentScrollPosition = require('./getElementScrollOffset')
+const scrollTo = require('./scrollTo')
 
 function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
   try {
@@ -27,8 +28,7 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
       setTimeout(() => {
         try {
           if (scrollAttempt > scrollsToAttempt) {
-            window.scrollTo(startingScrollPosition.x, startingScrollPosition.y)
-            const {x, y} = currentScrollPosition()
+            const {x, y} = scrollTo([undefined, startingScrollPosition])
             log.push({
               scrollAttempt,
               x,
@@ -38,8 +38,13 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
             window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {value: log}
             return
           }
-          window.scrollTo(startingScrollPosition.x, scrollLength * scrollAttempt)
-          const {x, y} = currentScrollPosition()
+          const {x, y} = scrollTo([
+            undefined,
+            {
+              x: startingScrollPosition.x,
+              y: scrollLength * scrollAttempt,
+            },
+          ])
           log.push({
             scrollAttempt,
             x,
