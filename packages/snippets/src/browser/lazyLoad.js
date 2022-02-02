@@ -5,27 +5,25 @@ const currentScrollPosition = require('./getElementScrollOffset')
 const scrollTo = require('./scrollTo')
 
 function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
-  if (window[EYES_NAMESPACE][LAZY_LOAD_KEY]) {
-    const state = window[EYES_NAMESPACE][LAZY_LOAD_KEY]
-    if (state.status !== 'WIP') delete window[EYES_NAMESPACE][LAZY_LOAD_KEY]
-    return JSON.stringify(state)
-  } else {
-    window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'WIP'}
-    try {
+  try {
+    if (window[EYES_NAMESPACE][LAZY_LOAD_KEY]) {
+      const state = window[EYES_NAMESPACE][LAZY_LOAD_KEY]
+      if (state.status !== 'WIP') delete window[EYES_NAMESPACE][LAZY_LOAD_KEY]
+      return JSON.stringify(state)
+    } else {
+      window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'WIP'}
       const startingScrollPosition = currentScrollPosition()
       const scrollableHeight =
         document.documentElement.scrollHeight - document.documentElement.clientHeight
       const targetPageHeight = pageHeight < scrollableHeight ? pageHeight : scrollableHeight
       const scrollsToAttempt = Math.ceil(targetPageHeight / scrollLength)
-      const log = [
-        {
-          userProvidedPageHeight: pageHeight,
-          targetPageHeight,
-          scrollsToAttempt,
-          startingScrollPositionX: startingScrollPosition.x,
-          startingScrollPositionY: startingScrollPosition.y,
-        },
-      ]
+      const log = [{
+        userProvidedPageHeight: pageHeight,
+        targetPageHeight,
+        scrollsToAttempt,
+        startingScrollPositionX: startingScrollPosition.x,
+        startingScrollPositionY: startingScrollPosition.y,
+      }]
       const start = Date.now()
 
       function scrollAndWait(scrollAttempt = 1) {
@@ -66,10 +64,10 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
 
       scrollAndWait()
       return JSON.stringify(window[EYES_NAMESPACE][LAZY_LOAD_KEY])
-    } catch (error) {
-      window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'ERROR', error}
-      return error
     }
+  } catch (error) {
+    window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'ERROR', error}
+    return JSON.stringify(window[EYES_NAMESPACE][LAZY_LOAD_KEY])
   }
 }
 
