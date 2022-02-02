@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- updated readme with lazyLoad details
+
 ## 1.19.2 - 2021/12/23
 
 - updated to @applitools/eyes-sdk-core@12.24.9 (from 12.24.6)

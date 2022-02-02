@@ -1,7 +1,9 @@
 # Change Log
+
 ## Unreleased
 
 - implement `getCapabilities` and `getBarsHeight` instead of `getDriverInfo`
+- updated readme with lazyLoad details
 
 ## 2.34.0 - 2021/11/10
 

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- updated readme with lazyLoad details
 
 ## 5.34.10 - 2022/1/24
 
