@@ -5,11 +5,6 @@ const lazyLoadPollResult = require('./lazyLoadPollResult')
 const currentScrollPosition = require('./getElementScrollOffset')
 
 function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
-  if (!scrollLength && !waitingTime && !pageHeight)
-    throw new Error(
-      'Incomplete set of arguments provided. Please provide scrollLength, waitingTime, and pageHeight',
-    )
-
   try {
     const startingScrollPosition = currentScrollPosition()
     const scrollableHeight =
@@ -30,29 +25,33 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
 
     function scrollAndWait(scrollAttempt = 1) {
       setTimeout(() => {
-        if (scrollAttempt > scrollsToAttempt) {
-          window.scrollTo(startingScrollPosition.x, startingScrollPosition.y)
+        try {
+          if (scrollAttempt > scrollsToAttempt) {
+            window.scrollTo(startingScrollPosition.x, startingScrollPosition.y)
+            const {x, y} = currentScrollPosition()
+            log.push({
+              scrollAttempt,
+              x,
+              y,
+              msSinceStart: Date.now() - start,
+            })
+            window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {value: log}
+            return
+          }
+          window.scrollTo(startingScrollPosition.x, scrollLength * scrollAttempt)
           const {x, y} = currentScrollPosition()
           log.push({
             scrollAttempt,
             x,
             y,
             msSinceStart: Date.now() - start,
+            scrollLength,
+            waitingTime,
           })
-          window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {value: log}
-          return
+          scrollAndWait(scrollAttempt + 1)
+        } catch (error) {
+          window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'ERROR', error}
         }
-        window.scrollTo(startingScrollPosition.x, scrollLength * scrollAttempt)
-        const {x, y} = currentScrollPosition()
-        log.push({
-          scrollAttempt,
-          x,
-          y,
-          msSinceStart: Date.now() - start,
-          scrollLength,
-          waitingTime,
-        })
-        scrollAndWait(scrollAttempt + 1)
       }, waitingTime)
     }
 

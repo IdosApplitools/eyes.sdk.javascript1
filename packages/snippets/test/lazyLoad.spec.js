@@ -20,13 +20,6 @@ describe('lazyLoad', () => {
       }
     })
 
-    it('errors on incomplete arguments', () => {
-      assert.rejects(
-        async () => await page.evaluate(lazyLoad),
-        /Incomplete set of arguments provided/,
-      )
-    })
-
     it('works on a page that can scroll', async () => {
       await page.goto(url)
       await page.evaluate(`window.scrollTo(${startingPosition.x}, ${startingPosition.y})`)
@@ -59,13 +52,6 @@ describe('lazyLoad', () => {
         if (!driver) {
           this.skip()
         }
-      })
-
-      it('errors on incomplete arguments', () => {
-        assert.rejects(
-          async () => await driver.execute(lazyLoad),
-          /Incomplete set of arguments provided/,
-        )
       })
 
       it('works on a page that can scroll', async () => {
