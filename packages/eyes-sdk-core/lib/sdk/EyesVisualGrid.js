@@ -12,7 +12,7 @@ const VisualGridRunner = require('../runner/VisualGridRunner')
 const takeDomSnapshots = require('../utils/takeDomSnapshots')
 const EyesCore = require('./EyesCore')
 const CheckSettingsUtils = require('../sdk/CheckSettingsUtils')
-const {lazyLoad, lazyLoadPollResult} = require('@applitools/snippets')
+const {lazyLoad} = require('@applitools/snippets')
 const EyesUtils = require('./EyesUtils')
 
 class EyesVisualGrid extends EyesCore {
@@ -183,7 +183,8 @@ class EyesVisualGrid extends EyesCore {
                   args: [[lazyLoadOptions]],
                 },
                 poll: {
-                  script: lazyLoadPollResult,
+                  script: lazyLoad,
+                  args: [[]],
                 },
               }
               await EyesUtils.executePollScript(this._logger, this._driver, scripts, {

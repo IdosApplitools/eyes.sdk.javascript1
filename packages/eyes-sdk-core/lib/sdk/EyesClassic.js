@@ -9,7 +9,7 @@ const ClassicRunner = require('../runner/ClassicRunner')
 const takeDomCapture = require('../utils/takeDomCapture')
 const EyesCore = require('./EyesCore')
 const CheckSettingsUtils = require('./CheckSettingsUtils')
-const {lazyLoad, lazyLoadPollResult} = require('@applitools/snippets')
+const {lazyLoad} = require('@applitools/snippets')
 const EyesUtils = require('./EyesUtils')
 
 class EyesClassic extends EyesCore {
@@ -131,7 +131,8 @@ class EyesClassic extends EyesCore {
           args: [[lazyLoadOptions]],
         },
         poll: {
-          script: lazyLoadPollResult,
+          script: lazyLoad,
+          args: [[]],
         },
       }
       await EyesUtils.executePollScript(this._logger, this._driver, scripts, {pollTimeout: lazyLoadOptions.waitingTime})
