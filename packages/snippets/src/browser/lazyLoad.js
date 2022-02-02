@@ -10,6 +10,7 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
     if (state.status !== 'WIP') delete window[EYES_NAMESPACE][LAZY_LOAD_KEY]
     return JSON.stringify(state)
   } else {
+    window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'WIP'}
     try {
       const startingScrollPosition = currentScrollPosition()
       const scrollableHeight =
@@ -25,7 +26,6 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
           startingScrollPositionY: startingScrollPosition.y,
         },
       ]
-      window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'WIP'}
       const start = Date.now()
 
       function scrollAndWait(scrollAttempt = 1) {
@@ -39,7 +39,7 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
                 y,
                 msSinceStart: Date.now() - start,
               })
-              window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {value: log}
+              window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'SUCCESS', value: log}
               return
             }
             const {x, y} = scrollTo([
