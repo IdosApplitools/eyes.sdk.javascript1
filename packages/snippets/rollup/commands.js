@@ -6,7 +6,6 @@ const commonjs = require('@rollup/plugin-commonjs')
 const {babel} = require('@rollup/plugin-babel')
 const {terser} = require('rollup-plugin-terser')
 const progress = require('./progress')
-const resolve = require('@rollup/plugin-node-resolve').nodeResolve
 
 function configure() {
   const input = glob.sync('./src/browser/*.js')
@@ -17,7 +16,6 @@ function configure() {
       snippet: './dist/index.js',
     },
     plugins: [
-      resolve(),
       commonjs(),
       babel({
         babelHelpers: 'inline',

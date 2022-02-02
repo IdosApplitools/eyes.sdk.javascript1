@@ -1,5 +1,5 @@
 const assert = require('assert')
-const {lazyLoad, lazyLoadPollResult} = require('../dist/index')
+const {lazyLoad} = require('../dist/index')
 
 describe('lazyLoad', () => {
   const url = 'https://applitools.github.io/demo/TestPages/SnippetsTestPage/'
@@ -29,7 +29,7 @@ describe('lazyLoad', () => {
       await page.evaluate(lazyLoad, [options])
       let result
       do {
-        result = JSON.parse(await page.evaluate(lazyLoadPollResult))
+        result = JSON.parse(await page.evaluate(lazyLoad))
       } while (result.status && result.status === 'WIP')
       const transactionHistory = result.value
       console.log(transactionHistory)
@@ -63,7 +63,7 @@ describe('lazyLoad', () => {
         await driver.execute(lazyLoad, [options])
         let result
         do {
-          result = JSON.parse(await driver.execute(lazyLoadPollResult))
+          result = JSON.parse(await driver.execute(lazyLoad))
         } while (result.status && result.status === 'WIP')
         const transactionHistory = result.value
         console.log(transactionHistory)
