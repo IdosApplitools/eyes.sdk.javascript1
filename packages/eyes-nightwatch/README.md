@@ -471,8 +471,7 @@ Possible input types are:
 Other details:
 
 - If an option is omitted, the sensible default for that value will be used
-- `lazyLoad` determines the page's scrollable height automatically
-- If the page's scrollable height is greater than the provided `pageHeight`, then the scrollable height will be used
+- The SDK will repeatedly scroll the page using the `scrollLength` until either the page cannot be scrolled further or the `pageHeight` has been reached (whichever happens first)
 
 ###### Other checkSettings configuration
 
