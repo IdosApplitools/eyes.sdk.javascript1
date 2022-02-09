@@ -4,7 +4,7 @@ window[EYES_NAMESPACE] = window[EYES_NAMESPACE] || {}
 const currentScrollPosition = require('./getElementScrollOffset')
 const scrollTo = require('./scrollTo')
 
-function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
+function lazyLoad([{scrollLength, waitingTime, pageHeight: maxAmountToScroll} = {}] = []) {
   try {
     if (window[EYES_NAMESPACE][LAZY_LOAD_KEY]) {
       const state = window[EYES_NAMESPACE][LAZY_LOAD_KEY]
@@ -13,26 +13,22 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
     } else {
       window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'WIP'}
       const startingScrollPosition = currentScrollPosition()
-      const scrollableHeight =
-        document.documentElement.scrollHeight - document.documentElement.clientHeight
-      const targetPageHeight = pageHeight < scrollableHeight ? pageHeight : scrollableHeight
-      const scrollsToAttempt = Math.ceil(targetPageHeight / scrollLength)
-      const log = [{
-        userProvidedPageHeight: pageHeight,
-        targetPageHeight,
-        scrollsToAttempt,
+      const log = []
+      log.push({
+        maxAmountToScroll,
+        scrollLength,
+        waitingTime,
         startingScrollPositionX: startingScrollPosition.x,
         startingScrollPositionY: startingScrollPosition.y,
-      }]
+      })
       const start = Date.now()
 
-      function scrollAndWait(scrollAttempt = 1) {
+      function scrollAndWait({doneScrolling, previousScrollResult = {}} = {}) {
         setTimeout(() => {
           try {
-            if (scrollAttempt > scrollsToAttempt) {
+            if (doneScrolling) {
               const {x, y} = scrollTo([undefined, startingScrollPosition])
               log.push({
-                scrollAttempt,
                 x,
                 y,
                 msSinceStart: Date.now() - start,
@@ -44,18 +40,18 @@ function lazyLoad([{scrollLength, waitingTime, pageHeight} = {}] = []) {
               undefined,
               {
                 x: startingScrollPosition.x,
-                y: scrollLength * scrollAttempt,
+                y: previousScrollResult.y + scrollLength,
               },
             ])
             log.push({
-              scrollAttempt,
               x,
               y,
               msSinceStart: Date.now() - start,
-              scrollLength,
-              waitingTime,
             })
-            scrollAndWait(scrollAttempt + 1)
+            scrollAndWait({
+              doneScrolling: y === previousScrollResult.y || y === maxAmountToScroll,
+              previousScrollResult: {x, y},
+            })
           } catch (error) {
             window[EYES_NAMESPACE][LAZY_LOAD_KEY] = {status: 'ERROR', error}
           }
