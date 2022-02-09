@@ -5,8 +5,20 @@
 - Add support for the `lazyLoad` CheckSettings option on visual grid execution
 - Add support for the `lazyLoad` CheckSettings option on classic execution
 
+## 13.0.2 - 2022/2/9
+
+- updated to @applitools/types@1.0.24 (from 1.0.23)
+- allow setting 'setImageCut' also after eyes.open
+- updated to @applitools/driver@1.4.12 (from 1.4.10)
+- updated to @applitools/screenshoter@3.3.5 (from 3.3.4)
+
+## 13.0.1 - 2022/2/4
+
 ### 🐛 BUG FIX
 - fix window fully screenshot on native apps was taking screenshot of scrollable element, instead of a whole window
+- updated to @applitools/driver@1.4.10 (from 1.4.9)
+- updated to @applitools/logger@1.0.10 (from 1.0.9)
+- updated to @applitools/types@1.0.24 (from 1.0.23)
 
 ## 13.0.0 - 2022/1/19
 

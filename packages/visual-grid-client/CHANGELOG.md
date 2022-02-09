@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- support adding new test(s) and the value of saveNewTest is false will warn
+- README.md update default value of 'exitcode' to 'true' (from 'false')
+
+## 15.8.63 - 2022/2/4
+
+- updated to @applitools/eyes-sdk-core@13.0.1 (from 13.0.0)
+- updated to @applitools/logger@1.0.10 (from 1.0.9)
 
 ## 15.8.62 - 2022/1/19
 

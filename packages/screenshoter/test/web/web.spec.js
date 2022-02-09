@@ -32,17 +32,6 @@ describe('screenshoter web', () => {
     await driver.setViewportSize({width: 700, height: 460})
   })
 
-  it('take viewport screenshot', () => {
-    return viewport()
-  })
-
-  it('take full page screenshot with "scroll" scrolling', () => {
-    return fullPage({scrollingMode: 'scroll'})
-  })
-  it('take full page screenshot with "css" scrolling', () => {
-    return fullPage({scrollingMode: 'css'})
-  })
-
   it('take frame screenshot with "scroll" scrolling', () => {
     return frame({scrollingMode: 'scroll'})
   })
@@ -127,28 +116,6 @@ describe('screenshoter web', () => {
     return fullFrameInFrame({scrollingMode: 'css'})
   })
 
-  async function viewport(options) {
-    const screenshot = await takeScreenshot({logger, driver, ...options})
-    try {
-      const actual = await screenshot.image.toObject()
-      const expected = await makeImage('./test/fixtures/web/page.png').toObject()
-      assert.strictEqual(pixelmatch(actual.data, expected.data, null, expected.width, expected.height), 0)
-    } catch (err) {
-      await screenshot.image.debug({path: './logs', name: 'viewport_failed'})
-      throw err
-    }
-  }
-  async function fullPage(options) {
-    const screenshot = await takeScreenshot({logger, driver, fully: true, ...options})
-    try {
-      const actual = await screenshot.image.toObject()
-      const expected = await makeImage('./test/fixtures/web/page-fully.png').toObject()
-      assert.strictEqual(pixelmatch(actual.data, expected.data, null, expected.width, expected.height), 0)
-    } catch (err) {
-      await screenshot.image.debug({path: './logs', name: 'full_page_failed'})
-      throw err
-    }
-  }
   async function frame(options) {
     const screenshot = await takeScreenshot({
       logger,

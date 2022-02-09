@@ -1,4 +1,4 @@
-import type {Size, Region, Cookie, DriverInfo} from '@applitools/types'
+import type {Size, Region, Cookie} from '@applitools/types'
 import * as utils from '@applitools/utils'
 
 export type Driver = Applitools.WebdriverIO.Browser & {__applitoolsBrand?: never}
@@ -176,8 +176,19 @@ export async function findElement(
 ): Promise<Applitools.WebdriverIO.Element> {
   selector = utils.types.has(selector, ['using', 'value']) ? `${selector.using}:${selector.value}` : selector
   const root = parent ? await browser.$(transformShadowRoot(parent) as any) : browser
-  const element = await root.$(selector)
-  return !utils.types.has(element, 'error') ? element : null
+  try {
+    const element = await root.$(selector)
+    return !utils.types.has(element, 'error') ? element : null
+  } catch (error) {
+    if (
+      /element could not be located/i.test(error.message) ||
+      /cannot locate an element/i.test(error.message) ||
+      /wasn\'t found/i.test(error.message)
+    ) {
+      return null
+    }
+    throw error
+  }
 }
 export async function findElements(
   browser: Driver,
@@ -232,14 +243,12 @@ export async function getCookies(browser: Driver, context?: boolean): Promise<Co
   })
 }
 export async function getCapabilities(browser: Driver): Promise<Record<string, any>> {
-  return browser.getSession?.() ?? browser.capabilities
-}
-export async function getDriverInfo(browser: Driver): Promise<DriverInfo> {
-  const info = {sessionId: browser.sessionId} as any
-  if (browser.getContext) {
-    info.isNative = !/^WEBVIEW_/.test(await browser.getContext())
+  try {
+    return (await browser.getSession?.()) ?? browser.capabilities
+  } catch (error) {
+    if (/cannot call non W3C standard command/i.test(error.message)) return browser.capabilities
+    throw error
   }
-  return info
 }
 export async function getTitle(browser: Driver): Promise<string> {
   return browser.getTitle()

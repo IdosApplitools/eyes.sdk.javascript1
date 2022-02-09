@@ -1,6 +1,6 @@
 {
   "name": "@applitools/eyes-storybook",
-  "version": "3.27.3",
+  "version": "3.27.4",
   "description": "",
   "engines": {
     "node": ">=8.6.0"
@@ -59,14 +59,15 @@
     "directory": "packages/eyes-storybook"
   },
   "dependencies": {
-    "@applitools/driver": "1.4.9",
-    "@applitools/eyes-sdk-core": "13.0.0",
+    "@applitools/driver": "1.4.12",
+    "@applitools/eyes-sdk-core": "13.0.2",
     "@applitools/functional-commons": "1.6.0",
-    "@applitools/logger": "1.0.9",
+    "@applitools/logger": "1.0.10",
     "@applitools/monitoring-commons": "1.0.19",
     "@applitools/spec-driver-puppeteer": "1.1.0",
     "@applitools/test-server": "1.0.8",
-    "@applitools/visual-grid-client": "15.8.62",
+    "@applitools/utils": "1.2.12",
+    "@applitools/visual-grid-client": "15.8.63",
     "boxen": "4.2.0",
     "chalk": "3.0.0",
     "detect-port": "1.3.0",
@@ -82,7 +83,6 @@
     "@applitools/sdk-release-kit": "0.13.11",
     "@applitools/sdk-shared": "0.9.11",
     "@applitools/snaptdout": "^1.0.1",
-    "@applitools/utils": "1.2.11",
     "@storybook/react": "^6.4.0",
     "@testing-library/dom": "^5.6.1",
     "babel-core": "^6.26.3",

@@ -3,11 +3,18 @@
 ## Unreleased
 
 
+## 1.0.7 - 2022/2/4
+
+- handle file system errors on logger
+- updated to @applitools/eyes-sdk-core@13.0.1 (from 13.0.0)
+- updated to @applitools/logger@1.0.10 (from 1.0.9)
+- updated to @applitools/visual-grid-client@15.8.63 (from 15.8.62)
 
 ## 1.0.6 - 2022/1/19
 
 - updated to @applitools/eyes-sdk-core@13.0.0 (from 12.24.14)
 - updated to @applitools/visual-grid-client@15.8.62 (from 15.8.61)
+
 ### ⚠ BREAKING CHANGES
 - change default behavior of `Eyes.check` command to take a full screenshot if screenshot target is a window
 
