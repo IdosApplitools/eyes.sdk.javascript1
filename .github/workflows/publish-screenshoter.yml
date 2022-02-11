@@ -25,7 +25,6 @@ env:
   PACKAGE_DIR: screenshoter
   FORCE_COLOR: 3
   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-  CVG_TESTS_REMOTE: http://localhost:4444/wd/hub
   SAUCE_USERNAME: ${{secrets.SAUCE_USERNAME}}
   SAUCE_ACCESS_KEY: ${{secrets.SAUCE_ACCESS_KEY}}
 jobs:
@@ -50,7 +49,7 @@ jobs:
           npx bongo release-pre-check --skip-deps --skip-commit --skip-verify-installed-versions
   test-it:
     needs: [verify]
-    name: 'Test IT'
+    name: 'Test integration'
     runs-on: ubuntu-latest
     steps:
       - name: Check-out repository
@@ -69,19 +68,19 @@ jobs:
   test-e2e:
     needs: [test-it]
     strategy:
-      max-parallel: 3
+      fail-fast: false
       matrix:
         include:
           - name: web
             os: ubuntu-latest
             jobs: 15
           - name: android
-            os: ubuntu-latest
+            os: macos-latest
             jobs: 2
           - name: ios
             os: macos-latest
             jobs: 2
-    name: 'Test E2E (${{matrix.name}})'
+    name: 'Test e2e (${{matrix.name}})'
     runs-on: ${{matrix.os}}
     steps:
       - name: Check-out repository
@@ -98,13 +97,13 @@ jobs:
         if: ${{matrix.name == 'android'}}
         uses: actions/cache@v2
         with:
-          path: ~/.android/avd
+          path: ~/.android/avd/*
           key: android-api-29-dependencies
       - name: Cache IOS dependencies
         if: ${{matrix.name == 'ios'}}
         uses: actions/cache@v2
         with:
-          path: ~/Library/Developer/Xcode/DerivedData/Appium-*
+          path: ~/Library/Developer/Xcode/DerivedData/*
           key: xcode-12.5.1-dependencies
       - name: Run tests
         uses: ./.github/actions/tests
@@ -113,6 +112,7 @@ jobs:
           test-type: e2e:${{matrix.name}}
           setup-type: ${{matrix.name}}
           jobs: ${{matrix.jobs}}
+          remote: ${{matrix.remote}}
       - name: Upload testing artifacts
         if: always()
         uses: actions/upload-artifact@v2
