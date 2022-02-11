@@ -4,7 +4,7 @@ window[EYES_NAMESPACE] = window[EYES_NAMESPACE] || {}
 const currentScrollPosition = require('./getElementScrollOffset')
 const scrollTo = require('./scrollTo')
 
-function lazyLoad([{scrollLength, waitingTime, pageHeight: maxAmountToScroll} = {}] = []) {
+function lazyLoad([{scrollLength, waitingTime, maxAmountToScroll} = {}] = []) {
   try {
     if (window[EYES_NAMESPACE][LAZY_LOAD_KEY]) {
       const state = window[EYES_NAMESPACE][LAZY_LOAD_KEY]

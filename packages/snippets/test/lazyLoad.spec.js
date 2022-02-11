@@ -10,7 +10,7 @@ describe('lazyLoad', () => {
   const options = {
     scrollLength: 300,
     waitingTime: 1,
-    pageHeight: 15000,
+    maxAmountToScroll: 15000,
   }
   const startingPosition = {x: 10, y: 50}
 
@@ -71,7 +71,7 @@ describe('lazyLoad', () => {
       console.log(transactionHistory)
       const scrolledHeight = transactionHistory[transactionHistory.length - 2].y
       const resetScroll = transactionHistory[transactionHistory.length - 1]
-      assert.deepStrictEqual(scrolledHeight, options.pageHeight)
+      assert.deepStrictEqual(scrolledHeight, options.maxAmountToScroll)
       assert.deepStrictEqual(resetScroll.x, 0)
       assert.deepStrictEqual(resetScroll.y, 0)
     })
@@ -134,7 +134,7 @@ describe('lazyLoad', () => {
         console.log(transactionHistory)
         const scrolledHeight = transactionHistory[transactionHistory.length - 2].y
         const resetScroll = transactionHistory[transactionHistory.length - 1]
-        assert.deepStrictEqual(scrolledHeight, options.pageHeight)
+        assert.deepStrictEqual(scrolledHeight, options.maxAmountToScroll)
         assert.deepStrictEqual(resetScroll.x, 0)
         assert.deepStrictEqual(resetScroll.y, 0)
       })

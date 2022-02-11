@@ -42,7 +42,7 @@ describe('CheckSettings', () => {
       const expected = {
         scrollLength: 1,
         waitingTime: 2,
-        pageHeight: 3,
+        maxAmountToScroll: 3,
       }
       const checkSettings = new CheckSettings().lazyLoad(expected)
       const actual = checkSettings.toJSON().lazyLoad

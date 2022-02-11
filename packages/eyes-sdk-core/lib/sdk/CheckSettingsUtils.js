@@ -225,7 +225,7 @@ function makeLazyLoadOptions(input) {
   const defaultOptions = {
     scrollLength: 300,
     waitingTime: 2000,
-    pageHeight: 15000,
+    maxAmountToScroll: 15000,
   }
 
   if (!input) return

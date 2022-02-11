@@ -606,7 +606,7 @@ describe('CheckSettingsUtils', () => {
     const defaultOptions = {
       scrollLength: 300,
       waitingTime: 2000,
-      pageHeight: 15000,
+      maxAmountToScroll: 15000,
     }
 
     it('makeLazyLoadOptions()', () => {
@@ -621,7 +621,7 @@ describe('CheckSettingsUtils', () => {
       const input = {
         scrollLength: 1,
         waitingTime: 2,
-        pageHeight: 3,
+        maxAmountToScroll: 3,
       }
       assert.deepStrictEqual(makeLazyLoadOptions(input), input)
     })
@@ -634,7 +634,7 @@ describe('CheckSettingsUtils', () => {
       const expected = {
         scrollLength: 1,
         waitingTime: 2,
-        pageHeight: 15000,
+        maxAmountToScroll: 15000,
       }
       assert.deepStrictEqual(makeLazyLoadOptions(input), expected)
     })

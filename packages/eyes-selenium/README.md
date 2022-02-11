@@ -388,7 +388,7 @@ eyes.check(Target.window().lazyLoad())
 
 // lazy loads with options specified
 eyes.check(Target.window().lazyLoad({
-  pageHeight: 1000,   // total pixels of the page to be scrolled
+  maxAmountToScroll: 1000,   // total pixels of the page to be scrolled
   scrollLength: 250,  // amount of pixels to use for each scroll attempt
   waitingTime: 500,   // milliseconds to wait in-between each scroll attempt
 }))
@@ -397,12 +397,12 @@ eyes.check(Target.window().lazyLoad({
 Possible input types are:
 
 - nothing (enables sensible defaults)
-- options object (`{pageHeight, waitingTime, scrollLength}`)
+- options object (`{maxAmountToScroll, waitingTime, scrollLength}`)
 
 Other details:
 
 - If an option is omitted, the sensible default for that value will be used
-- The SDK will repeatedly scroll the page using the `scrollLength` until either the page cannot be scrolled further or the `pageHeight` has been reached (whichever happens first)
+- The SDK will repeatedly scroll the page using the `scrollLength` until either the page cannot be scrolled further or the `maxAmountToScroll` has been reached (whichever happens first)
 
 ###### Other checkSettings configuration
 
