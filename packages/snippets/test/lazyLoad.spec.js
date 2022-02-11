@@ -6,7 +6,6 @@ describe('lazyLoad', () => {
     snippetsTestPage: 'https://applitools.github.io/demo/TestPages/SnippetsTestPage/',
     cannotScroll: 'data:text/html,%3Ch1%3EHello%2C%20World%21%3C%2Fh1%3E',
     infiniteScroll: 'https://applitools.github.io/demo/TestPages/InfiniteScroll/',
-    //infiniteScroll: 'file:///Users/me/Documents/_dev/applitools/demo/TestPages/InfiniteScroll/index.html',
   }
   const options = {
     scrollLength: 300,
@@ -124,30 +123,7 @@ describe('lazyLoad', () => {
         assert.deepStrictEqual(resetScroll.y, 0)
       })
 
-      // TODO: sort out why this fails (test app not compatible with IE?)
-      // Here's the log output from the run:
-      // [
-      //  {
-      //    maxAmountToScroll: 15000,
-      //    scrollLength: 300,
-      //    waitingTime: 1,
-      //    startingScrollPositionX: 0,
-      //    startingScrollPositionY: 0
-      //  },
-      //  { x: 0, y: 0, msSinceStart: 13 },
-      //  { x: 0, y: 300, msSinceStart: 18 },
-      //  { x: 0, y: 600, msSinceStart: 32 },
-      //  { x: 0, y: 900, msSinceStart: 36 },
-      //  { x: 0, y: 1200, msSinceStart: 38 },
-      //  { x: 0, y: 1500, msSinceStart: 43 },
-      //  { x: 0, y: 1800, msSinceStart: 43 },
-      //  { x: 0, y: 2100, msSinceStart: 46 },
-      //  { x: 0, y: 2400, msSinceStart: 49 },
-      //  { x: 0, y: 2416, msSinceStart: 62 },
-      //  { x: 0, y: 2416, msSinceStart: 63 },
-      //  { x: 0, y: 0, msSinceStart: 66 }
-      //]
-      it.skip('works on a page with infinite scroll', async () => {
+      it('works on a page with infinite scroll', async () => {
         await driver.url(pages.infiniteScroll)
         await driver.execute(lazyLoad, [options])
         let result
