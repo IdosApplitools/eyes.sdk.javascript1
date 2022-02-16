@@ -4,6 +4,22 @@
 ## Unreleased
 
 
+## 3.3.9 - 2022/2/16
+
+- remove prevention of translation in `mixed` scrolling mode
+- updated to @applitools/snippets@2.1.15 (from 2.1.14)
+
+## 3.3.8 - 2022/2/16
+
+- updated to @applitools/snippets@2.1.14 (from 2.1.13)
+
+## 3.3.7 - 2022/2/15
+
+- fix image scaling on pages without viewport metatag
+- fix safari's viewport detection on iOS devices
+- updated to @applitools/snippets@2.1.13 (from 2.1.12)
+- updated to @applitools/utils@1.2.13 (from 1.2.12)
+
 ## 3.3.6 - 2022/2/9
 
 - fix testing

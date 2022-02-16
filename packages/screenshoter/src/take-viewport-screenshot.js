@@ -33,7 +33,7 @@ function makeTakeDefaultScreenshot({driver, stabilization = {}, debug, logger}) 
     await image.debug({...debug, name, suffix: 'original'})
 
     if (stabilization.scale) image.scale(stabilization.scale)
-    else image.scale(1 / driver.pixelRatio)
+    else image.scale(1 / driver.pixelRatio / driver.viewportScale)
 
     if (stabilization.rotate) image.crop(stabilization.rotate)
 
@@ -53,7 +53,7 @@ function makeTakeMainContextScreenshot({driver, stabilization = {}, debug, logge
     await image.debug({...debug, name, suffix: 'original'})
 
     if (stabilization.scale) image.scale(stabilization.scale)
-    else image.scale(1 / driver.pixelRatio)
+    else image.scale(1 / driver.pixelRatio / driver.viewportScale)
 
     if (stabilization.rotate) image.rotate(stabilization.rotate)
 
@@ -72,7 +72,7 @@ function makeTakeSafari11Screenshot({driver, stabilization = {}, debug, logger})
     await image.debug({...debug, name, suffix: 'original'})
 
     if (stabilization.scale) image.scale(stabilization.scale)
-    else image.scale(1 / driver.pixelRatio)
+    else image.scale(1 / driver.pixelRatio / driver.viewportScale)
 
     if (stabilization.rotate) image.rotate(stabilization.rotate)
 
@@ -96,7 +96,7 @@ function makeTakeMarkedScreenshot({driver, stabilization = {}, debug, logger}) {
     await image.debug({...debug, name, suffix: 'original'})
 
     if (stabilization.scale) image.scale(stabilization.scale)
-    else image.scale(1 / driver.pixelRatio)
+    else image.scale(1 / driver.pixelRatio / driver.viewportScale)
 
     if (stabilization.rotate) image.rotate(stabilization.rotate)
     else if (driver.orientation === 'landscape' && image.width < image.height) image.rotate(-90)
@@ -113,7 +113,13 @@ function makeTakeMarkedScreenshot({driver, stabilization = {}, debug, logger}) {
   }
 
   async function getViewportRegion() {
-    const marker = await driver.mainContext.execute(snippets.addPageMarker)
+    // marker is -> bwb bwbb wbw bwbb wbww bbb
+    const marker = await driver.mainContext.execute(snippets.addPageMarker, [
+      {
+        mask: [1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1],
+        size: utils.math.multiplier(driver.viewportScale * driver.pixelRatio, 0.05),
+      },
+    ])
     await utils.general.sleep(100)
 
     try {
@@ -124,12 +130,16 @@ function makeTakeMarkedScreenshot({driver, stabilization = {}, debug, logger}) {
 
       await image.debug({...debug, name: 'marker'})
 
-      const markerLocation = findImagePattern(await image.toObject(), {...marker, pixelRatio: driver.pixelRatio})
+      const markerLocation = findImagePattern(await image.toObject(), {
+        ...marker,
+        scale: driver.viewportScale * driver.pixelRatio,
+      })
       if (!markerLocation) return null
 
-      const viewportSize = await driver.getViewportSize()
-
-      return utils.geometry.region(utils.geometry.scale(markerLocation, 1 / driver.pixelRatio), viewportSize)
+      return utils.geometry.region(
+        utils.geometry.scale(markerLocation, 1 / driver.pixelRatio / driver.viewportScale),
+        await driver.getViewportSize(),
+      )
     } finally {
       await driver.mainContext.execute(snippets.cleanupPageMarker)
     }
@@ -143,7 +153,7 @@ function makeTakeNativeScreenshot({driver, stabilization = {}, debug, logger}) {
     await image.debug({...debug, name, suffix: 'original'})
 
     if (stabilization.scale) image.scale(stabilization.scale)
-    else image.scale(1 / driver.pixelRatio)
+    else image.scale(1 / driver.pixelRatio / driver.viewportScale)
 
     if (stabilization.rotate) image.rotate(stabilization.rotate)
     else if (driver.orientation === 'landscape' && image.width < image.height) image.rotate(-90)

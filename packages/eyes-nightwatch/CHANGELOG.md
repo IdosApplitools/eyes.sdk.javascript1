@@ -3,6 +3,7 @@
 ## Unreleased
 
 - updated readme with lazyLoad details
+- fixing: Nightwatch 1.10.2 throwing Module assert/Strict not found
 
 ## 1.10.2 - 2021/12/21
 

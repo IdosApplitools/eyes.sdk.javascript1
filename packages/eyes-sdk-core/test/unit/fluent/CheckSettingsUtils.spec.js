@@ -443,7 +443,7 @@ describe('CheckSettingsUtils', () => {
       mockDriver = new MockDriver()
       mockDriver.mockElement('custom selector', {rect: region1})
       mockDriver.mockElement('custom selector', {rect: region2})
-      driver = new Driver({logger, spec, driver: mockDriver})
+      driver = await new Driver({logger, spec, driver: mockDriver}).init()
     })
 
     it('handle region by coordinates', async () => {
