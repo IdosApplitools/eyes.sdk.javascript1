@@ -20,7 +20,6 @@
 - updated to @applitools/utils@1.2.11 (from 1.2.4)
 - updated Logger to support @applitools/logger@1.0.9
 - fix BatchInfo > addProperty failed in case properties are not initialized
->>>>>>> master
 
 ## 1.1.6 - 2021/11/10
 
