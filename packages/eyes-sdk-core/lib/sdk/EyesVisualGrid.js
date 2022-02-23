@@ -172,9 +172,7 @@ class EyesVisualGrid extends EyesCore {
           getEmulatedDevicesSizes: this._getEmulatedDevicesSizes,
           getIosDevicesSizes: this._getIosDevicesSizes,
           showLogs,
-          waitBeforeCapture: async () => {
-            await utils.general.sleep(waitBeforeCapture)
-          },
+          waitBeforeCapture: () => utils.general.sleep(waitBeforeCapture),
           lazyLoadBeforeCapture: async () => {
             if (lazyLoadOptions) {
               const scripts = {
