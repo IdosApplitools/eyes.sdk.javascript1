@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- updated readme with lazyLoad details
+- Support lazyLoad option in `eyes.check`
 
 ## 5.34.12 - 2022/2/16
 
