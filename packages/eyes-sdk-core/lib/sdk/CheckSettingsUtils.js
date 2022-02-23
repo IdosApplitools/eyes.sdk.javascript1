@@ -234,7 +234,7 @@ function makeLazyLoadOptions(input) {
   }
 
   if (!input) return
-  else if (TypeUtils.isBoolean(input) && input) return defaultOptions
+  else if (input === true) return defaultOptions
   else if (TypeUtils.isObject(input)) return Object.assign({}, defaultOptions, input)
   else throw new Error('Invalid type provided. Provide either nothing, a boolean, or an object')
 }
