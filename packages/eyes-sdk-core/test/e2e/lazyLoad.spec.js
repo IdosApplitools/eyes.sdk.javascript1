@@ -15,7 +15,7 @@ describe('lazyLoad', () => {
   afterEach(async () => {
     if (destroyDriver) await destroyDriver()
     if (eyes) await eyes.abort()
-    manager.closeAllEyes()
+    await manager.closeAllEyes()
   })
 
   describe('vg', () => {
