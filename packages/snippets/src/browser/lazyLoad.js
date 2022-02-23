@@ -4,6 +4,9 @@ window[EYES_NAMESPACE] = window[EYES_NAMESPACE] || {}
 const currentScrollPosition = require('./getElementScrollOffset')
 const scrollTo = require('./scrollTo')
 
+// NOTE:
+// This snippet uses `scrollTo`, which sets `scroll-behavior` to `auto`,
+// and is called on each scrolling iteration.
 function lazyLoad([{scrollLength, waitingTime, maxAmountToScroll} = {}] = []) {
   try {
     if (window[EYES_NAMESPACE][LAZY_LOAD_KEY]) {
