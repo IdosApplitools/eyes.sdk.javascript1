@@ -70,7 +70,7 @@ async function takeDomSnapshots({
       if (waitBeforeCapture) await waitBeforeCapture()
       if (lazyLoadBeforeCapture) await lazyLoadBeforeCapture()
     } catch (err) {
-      console.log(err)
+      logger.log(err)
       const actualViewportSize = await driver.getViewportSize()
       if (isStrictBreakpoints) {
         const failedBrowsers = browsersInfo.map(({name, width}) => `(${name}, ${width})`).join(', ')
