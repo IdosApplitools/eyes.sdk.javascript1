@@ -75,7 +75,7 @@ export type CheckSettings<TElement, TSelector> = MatchSettings<RegionReference<T
     renderId?: string
     variationGroupId?: string
     timeout?: number
-    lazyLoad?: boolean | LazyLoadOptions
+    lazyLoad?: LazyLoadOptions
   }
 
 export type OCRExtractSettings<TElement, TSelector> = {

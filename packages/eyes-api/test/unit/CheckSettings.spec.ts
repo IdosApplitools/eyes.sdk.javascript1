@@ -48,12 +48,6 @@ describe('CheckSettings', () => {
       const actual = checkSettings.toJSON().lazyLoad
       assert.deepStrictEqual(actual, expected)
     })
-    it('set lazyLoad with boolean', () => {
-      const expected = true
-      const checkSettings = new CheckSettings().lazyLoad(expected)
-      const actual = checkSettings.toJSON().lazyLoad
-      assert.deepStrictEqual(actual, expected)
-    })
     it('set lazyLoad with no value', () => {
       const expected = true
       const checkSettings = new CheckSettings().lazyLoad()
