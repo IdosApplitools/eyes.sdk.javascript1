@@ -3,6 +3,11 @@
 
 ## Unreleased
 
+- scroll to 0,0 before taking stitched screenshot
+
+## 3.3.10 - 2022/2/16
+
+- do not perform initial scrolling in `takeStitchedScreenshot`
 
 ## 3.3.9 - 2022/2/16
 

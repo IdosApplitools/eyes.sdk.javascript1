@@ -3,6 +3,11 @@
 ## Unreleased
 
 
+## 15.9.0 - 2022/2/20
+
+- Add support to page coverage by adding `pageId` to `Eyes.check`.
+- updated to @applitools/eyes-sdk-core@13.0.6 (from 13.0.4)
+
 ## 15.8.65 - 2022/2/16
 
 - updated to @applitools/eyes-sdk-core@13.0.4 (from 13.0.3)

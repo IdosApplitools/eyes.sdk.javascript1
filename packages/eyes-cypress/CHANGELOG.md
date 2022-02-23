@@ -3,6 +3,11 @@
 ## Unreleased
 
 
+## 3.23.9 - 2022/2/22
+
+- support 'tapDirPath' with newer Cypress versions
+- updated to @applitools/visual-grid-client@15.9.0 (from 15.8.65)
+
 ## 3.23.8 - 2022/2/16
 
 - upgrade axios version to 0.26.0 (from 0.21.4) fixing axios > 'follow-redirects' vulnerability issue

@@ -4,6 +4,12 @@
 
 - Add support for the `lazyLoad` CheckSettings option on visual grid and classic execution
 
+## 13.0.6 - 2022/2/20
+
+- updated to @applitools/screenshoter@3.3.5 (from 3.3.4)
+- updated to @applitools/driver@1.4.11 (from 1.4.10)
+- updated to @applitools/screenshoter@3.3.10 (from 3.3.9)
+
 ## 13.0.5 - 2022/2/16
 
 - upgrade axios version to 0.26.0 (from 0.21.4) fixing axios > 'follow-redirects' vulnerability issue
