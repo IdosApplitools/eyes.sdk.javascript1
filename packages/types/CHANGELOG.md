@@ -3,6 +3,9 @@
 ## Unreleased
 
 - add `lazyLoad` property to `CheckSettings` along with the `LazyLoadOptions` data type
+
+## 1.1.0 - 2022/3/1
+
 - Add support to page coverage by adding `pageId` to `Eyes.check`.
 - add `waitForSelector` to `SpecDriver` type
 - add `WaitOptions` type

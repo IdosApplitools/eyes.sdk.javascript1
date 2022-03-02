@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Add support for the `lazyLoad` CheckSettings option on visual grid and classic execution
+- add support for aborting unclosed Eyes sessions and returning their results as part of manager.closeAllEyes
 
 ## 13.0.6 - 2022/2/20
 

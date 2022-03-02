@@ -3,8 +3,8 @@ const spec = require('../../dist/spec-driver')
 
 function extractElementId(element) {
   return element.value
-    ? element.value['ELEMENT'] ?? element.value['element-6066-11e4-a52e-4f735466cecf']
-    : element['ELEMENT'] ?? element['element-6066-11e4-a52e-4f735466cecf']
+    ? element.value['ELEMENT'] || element.value['element-6066-11e4-a52e-4f735466cecf']
+    : element['ELEMENT'] || element['element-6066-11e4-a52e-4f735466cecf']
 }
 
 async function equalElements(driver, element1, element2) {
@@ -340,16 +340,18 @@ describe('spec driver', async () => {
     const cookie = {
       name: 'hello',
       value: 'world',
-      domain: input?.context ? '.applitools.github.io' : 'google.com',
+      domain: input && input.context ? '.applitools.github.io' : 'google.com',
       path: '/',
       expiry: 4025208067,
       httpOnly: true,
       secure: true,
     }
-    if (input?.context) {
+    let inputContext
+    if (input && input.context) {
+      inputContext = input.context
       await driver.setCookie(cookie)
     }
-    const result = await spec.getCookies(driver, input?.context)
+    const result = await spec.getCookies(driver, inputContext)
     assert.deepStrictEqual(result, [cookie])
   }
   async function getTitle() {
