@@ -36,8 +36,8 @@
     "changelog:install": "sudo apt-get install git-extras",
     "gh:publish": "gh workflow run publish-storybook.yml --ref $(git rev-parse --abbrev-ref HEAD)",
     "postinstall": "node src/postinstall",
-    "preversion": "bongo preversion",
-    "version": "bongo version",
+    "preversion": "bongo preversion --verifyPendingChanges",
+    "version": "bongo version --withPendingChanges",
     "postversion": "bongo postversion --skip-release-notification",
     "deps": "bongo deps",
     "prepublish:setup": "echo 'setup is a no-op. Move along, nothing to see here.'"
@@ -80,7 +80,7 @@
   },
   "devDependencies": {
     "@applitools/scripts": "^1.1.0",
-    "@applitools/sdk-release-kit": "0.13.11",
+    "@applitools/sdk-release-kit": "1.0.0",
     "@applitools/sdk-shared": "0.9.11",
     "@applitools/snaptdout": "^1.0.1",
     "@storybook/react": "^6.4.0",

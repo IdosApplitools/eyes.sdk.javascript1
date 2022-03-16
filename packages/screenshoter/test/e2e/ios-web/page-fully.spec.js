@@ -1,7 +1,6 @@
-const {makeDriver, sleep, test} = require('../e2e')
+const {makeDriver, sleep, test, logger} = require('../e2e')
 
 describe('screenshoter ios web', () => {
-  const logger = {log: () => {}, warn: () => {}, error: () => {}, verbose: () => {}}
   let driver, destroyDriver
 
   before(async () => {
@@ -23,6 +22,7 @@ describe('screenshoter ios web', () => {
       fully: true,
       driver,
       logger,
+      // debug: {path: './logs/page-fully-ios-html'},
     })
   })
 })

@@ -263,12 +263,13 @@ export class Context<TDriver, TContext, TElement, TSelector> {
     if (this.driver.features?.shadowSelector) return {context, selector: elementSelector}
 
     let root = null as TElement
+    let element = null as TElement
     let currentSelector = elementSelector
     while (
       specUtils.isCommonSelector(this._spec, currentSelector) &&
       specUtils.isSelector(this._spec, currentSelector.shadow)
     ) {
-      const element = await this._spec.findElement(
+      element = await this._spec.findElement(
         this.target,
         specUtils.transformSelector(this._spec, currentSelector, this.driver),
         root,
@@ -281,7 +282,7 @@ export class Context<TDriver, TContext, TElement, TSelector> {
 
     return {
       context,
-      shadow: root ? new Element({spec: this._spec, context, element: root, logger: this._logger}) : null,
+      shadow: root ? new Element({spec: this._spec, context, element, logger: this._logger, root}) : null,
       selector: currentSelector,
     }
   }
@@ -427,10 +428,13 @@ export class Context<TDriver, TContext, TElement, TSelector> {
       await this.focus()
       if (this._scrollingElement) {
         this._scrollingElement = await this.element(this._scrollingElement)
+      } else if (this.driver.isWeb) {
+        const isIOS = this.driver.isIOS
+        const selector = isIOS ? 'html' : await this.execute(snippets.getDocumentScrollingElement)
+        this._logger.log(`default SRE is ${selector}${isIOS ? ' (because Safari on iOS)' : ''}`)
+        this._scrollingElement = await this.element({type: 'css', selector})
       } else {
-        this._scrollingElement = await this.element(
-          this.driver.isWeb ? {type: 'css', selector: 'html'} : {type: 'xpath', selector: '//*[@scrollable="true"]'},
-        )
+        this._scrollingElement = await this.element({type: 'xpath', selector: '//*[@scrollable="true"]'})
       }
     }
     return this._scrollingElement

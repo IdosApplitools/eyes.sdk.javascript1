@@ -7,6 +7,10 @@ const {Driver} = require('@applitools/driver')
 const makeImage = require('../../src/image')
 const takeScreenshot = require('../../src/take-screenshot')
 
+exports.logger = process.env.APPLITOOLS_SHOW_LOGS
+  ? {log: console.log, warn: console.log, error: console.log, verbose: console.log}
+  : {log: () => {}, warn: () => {}, error: () => {}, verbose: () => {}}
+
 async function sanitizeAndroidStatusBar(image) {
   const leftPatchImage = makeImage({
     width: 425,
@@ -157,5 +161,16 @@ exports.makeDriver = async function makeDriver({type, app, orientation, logger})
   })
 
   const driver = await new Driver({driver: browser, spec, logger}).init()
-  return [driver, async () => browser.deleteSession()]
+  if (process.env.APPLITOOLS_TEST_REMOTE === 'sauce')
+    console.log(`Running on Sauce Labs at: https://app.saucelabs.com/tests/${driver._target.sessionId}`)
+  return [
+    driver,
+    async () => {
+      try {
+        browser.deleteSession()
+      } catch (error) {
+        // don't error if unable to cleanup the browser, it creates unnecessary test failures
+      }
+    },
+  ]
 }

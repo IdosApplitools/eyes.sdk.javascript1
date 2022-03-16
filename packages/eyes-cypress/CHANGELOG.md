@@ -3,6 +3,16 @@
 ## Unreleased
 
 
+## 3.25.1 - 2022/3/15
+
+- fix test script
+
+## 3.25.0 - 2022/3/15
+
+- convert cypress to work on top of universal
+- expose `cy.eyesGetAllTestResults`
+- updated to @applitools/visual-grid-client@15.10.1 (from 15.9.0)
+
 ## 3.23.9 - 2022/2/22
 
 - support 'tapDirPath' with newer Cypress versions
@@ -22,7 +32,6 @@
 
 - fix global hook overrides
 - updated to @applitools/visual-grid-client@15.8.62 (from 15.8.57)
-
 ## 3.23.5 - 2022/1/6
 
 - updated to @applitools/dom-snapshot@4.5.12 (from 4.5.11)

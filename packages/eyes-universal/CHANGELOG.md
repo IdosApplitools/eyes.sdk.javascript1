@@ -2,7 +2,22 @@
 
 ## Unreleased
 
+
+## 2.0.1 - 2022/3/14
+
+- update snippets to address Cypres universal (AUT is hosted in an iframe inside the Cypres shell)
+- updated to @applitools/eyes-sdk-core@13.1.1 (from 13.1.0)
+- updated to @applitools/visual-grid-client@15.10.1 (from 15.10.0)
+
+## 2.0.0 - 2022/3/12
+
 - update `Eyes.abort` so it fails gracefully when an Eyes instance is not found
+- support AUTProxy
+- support assigning 'scrollingElement' as 'body' or 'html' dom element
+- rename manager.closeAllEyes to manager.closeManager
+- add support for aborting unclosed Eyes sessions and returning their results as part of manager.closeManager
+- updated to @applitools/eyes-sdk-core@13.1.0 (from 13.0.6)
+- updated to @applitools/visual-grid-client@15.10.0 (from 15.9.0)
 
 ## 1.1.0 - 2022/2/20
 

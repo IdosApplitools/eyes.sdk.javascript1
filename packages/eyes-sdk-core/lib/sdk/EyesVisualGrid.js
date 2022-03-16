@@ -108,6 +108,7 @@ class EyesVisualGrid extends EyesCore {
       apiKey: this._configuration.getApiKey(),
       showLogs: this._configuration.getShowLogs(),
       proxy: this._configuration.getProxy(),
+      autProxy: this._configuration.getAutProxy(),
       serverUrl: this._configuration.getServerUrl(),
       concurrency: this._runner.legacyConcurrency || this._configuration.getConcurrentSessions(),
       testConcurrency: this._runner.testConcurrency,
@@ -237,6 +238,8 @@ class EyesVisualGrid extends EyesCore {
     try {
       return await operation()
     } finally {
+      await this._context.main.setScrollingElement(null)
+      await this._context.setScrollingElement(null)
       this._context = await originalContext.focus()
     }
   }
@@ -246,6 +249,7 @@ class EyesVisualGrid extends EyesCore {
   }
 
   async close() {
+    const browsersInfo = this._configuration.getBrowsersInfo()
     let isErrorCaught = false
     this._closePromise = this._closeCommand(true)
       .catch(err => {
@@ -255,16 +259,28 @@ class EyesVisualGrid extends EyesCore {
       .then(results => {
         this._isOpen = false
         if (isErrorCaught) {
-          const error = TypeUtils.isArray(results) ? results.find(result => result instanceof Error) : results
-          if (!error.info || !error.info.testResult) throw error
+          if (!Array.isArray(results)) throw results
         }
-        return results.map(result => (result instanceof Error ? result.info.testResult : result.toJSON()))
+        return results.map((result, i) => {
+          const testResults = result instanceof Error ? result.info && result.info.testResult : result.toJSON()
+          const exception = testResults ? null : result
+          return {
+            testResults,
+            exception,
+            browserInfo: browsersInfo[i],
+          }
+        })
       })
-      .then(results => {
+      .then(containers => {
         if (this._runner) {
-          this._runner._allTestResult.push(...results)
+          this._runner._allTestResult.push(...containers)
         }
-        return results
+        const errorContainer = containers.find(({exception}) => !!exception)
+        if (errorContainer) {
+          throw errorContainer.exception
+        }
+
+        return containers.map(({testResults}) => testResults)
       })
 
     return this._closePromise
@@ -280,11 +296,11 @@ class EyesVisualGrid extends EyesCore {
 
   async abort() {
     this._isOpen = false
-    return this._abortPromise = this._abortCommand().then(results => {
-      const resultJson = results.map(result => result ? result.toJSON() : result) // not sure if it can even happen that abortCommand from vgc can return partly null array
-      this._runner._allTestResult.push(...resultJson.filter(result => !!result))
+    return (this._abortPromise = this._abortCommand().then(results => {
+      const resultJson = results.map(result => (result ? result.toJSON() : result)) // not sure if it can even happen that abortCommand from vgc can return partly null array
+      this._runner._allTestResult.push(...resultJson.filter(result => !!result).map(result => ({testResults: result})))
       return resultJson
-    })
+    }))
   }
 
   async getInferredEnvironment() {

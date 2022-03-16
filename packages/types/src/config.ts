@@ -7,14 +7,13 @@ import {
   Size,
   Region,
   Proxy,
+  AutProxy,
   Batch,
   CustomProperty,
   ImageRotation,
   ImageCropRect,
   ImageCropRegion,
-  DesktopBrowserRenderer,
-  ChromeEmulationDeviceRenderer,
-  IOSDeviceRenderer,
+  BrowserInfoRenderer,
 } from './data'
 
 export type EyesManagerConfig<TType extends 'vg' | 'classic' = 'vg' | 'classic'> = {
@@ -36,6 +35,7 @@ export type EyesBaseConfig = {
   apiKey?: string
   serverUrl?: string
   proxy?: Proxy
+  autProxy?: AutProxy
   isDisabled?: boolean
   connectionTimeout?: number
   removeSession?: boolean
@@ -91,7 +91,7 @@ export type EyesClassicConfig<TElement = unknown, TSelector = unknown> = {
 
 export type EyesUFGConfig = {
   concurrentSessions?: number
-  browsersInfo?: (DesktopBrowserRenderer | ChromeEmulationDeviceRenderer | IOSDeviceRenderer)[]
+  browsersInfo?: BrowserInfoRenderer[]
   visualGridOptions?: Record<string, any>
   layoutBreakpoints?: boolean | number[]
   disableBrowserFetching?: boolean

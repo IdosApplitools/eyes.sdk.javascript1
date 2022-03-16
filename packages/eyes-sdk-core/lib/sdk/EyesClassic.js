@@ -92,7 +92,7 @@ class EyesClassic extends EyesCore {
     }
 
     this._checkSettings = checkSettings
-    return await this.checkWindowBase({
+    const result = await this.checkWindowBase({
       name: checkSettings.name,
       url: await this._driver.getUrl(),
       renderId: checkSettings.renderId,
@@ -102,6 +102,11 @@ class EyesClassic extends EyesCore {
       closeAfterMatch,
       throwEx,
     })
+
+    await this._context.main.setScrollingElement(null)
+    await this._context.setScrollingElement(null)
+
+    return result
   }
 
   async getScreenshot() {
@@ -197,31 +202,36 @@ class EyesClassic extends EyesCore {
       })
       .then(results => {
         if (isErrorCaught) {
-          if (results.info && results.info.testResult) return [results.info.testResult]
-          else throw results
+          if (results.info && results.info.testResult) return {testResults: results.info.testResult}
+          else return {exception: results}
         }
-        return [results.toJSON()]
+        return {testResults: results.toJSON()}
       })
-      .then(results => {
+      .then(container => {
         if (this._runner) {
-          this._runner._allTestResult.push(...results)
+          this._runner._allTestResult.push(container)
         }
-        return results
+
+        if (container.testResults) {
+          return [container.testResults]
+        } else {
+          throw container.exception
+        }
       })
 
     return this._closePromise
   }
 
   async abort() {
-    return this._abortPromise = super.abort().then(results => {
+    return (this._abortPromise = super.abort().then(results => {
       if (results) {
         const resultsJson = results.toJSON()
-        this._runner._allTestResult.push(resultsJson)
+        this._runner._allTestResult.push({testResults: resultsJson})
         return [resultsJson]
       } else {
         return results
       }
-    })
+    }))
   }
 
   async getAppEnvironment() {

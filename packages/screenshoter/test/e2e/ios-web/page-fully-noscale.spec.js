@@ -1,7 +1,6 @@
-const {makeDriver, sleep, test} = require('../e2e')
+const {makeDriver, sleep, test, logger} = require('../e2e')
 
 describe('screenshoter ios web', () => {
-  const logger = {log: () => {}, warn: () => {}, error: () => {}, verbose: () => {}}
   let driver, destroyDriver
 
   before(async () => {
@@ -12,7 +11,7 @@ describe('screenshoter ios web', () => {
     await destroyDriver()
   })
 
-  it('take viewport screenshot on page with no scale', async () => {
+  it('take full page screenshot on page with no scale', async () => {
     await driver.visit('http://applitoolsdemo.eastus.cloudapp.azure.com/test-noscale.html')
     await sleep(5000)
 

@@ -233,6 +233,8 @@ export async function build(env: any): Promise<[Driver, () => Promise<void>]> {
       if (browser !== 'firefox' && !browserOptions.mobileEmulation) browserOptions.w3c = false
     }
   }
+  // needed for mobile native to work in newer versions of nightwatch
+  if (desiredCapabilities.browserName === '') desiredCapabilities.browserName = null
 
   // building
   const Nightwatch = require('nightwatch')
@@ -245,7 +247,7 @@ export async function build(env: any): Promise<[Driver, () => Promise<void>]> {
           output: false,
           webdriver: {
             host: !url.host.includes('localhost') ? url.host : undefined,
-            port: url.port,
+            port: url.port || 4444,
             default_path_prefix: url.pathname,
           },
           desiredCapabilities,
