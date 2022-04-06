@@ -13,19 +13,23 @@ Apollo SDK:
     - 
 "@applitools/eyes-selenium":
   feature:
+    - Support UFG for native mobile
     - |
       `runner.getAllTestResults` returns the corresponding UFG browser/device configuration for each test. This is available as `runner.getAllTestResults()[i].browserInfo`.
   bug-fix:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
+    - accept ios and android lowercase as driver platformName capability when using custom grid
 "@applitools/eyes-webdriverio":
   feature:
-    - 
+    - Support UFG for native mobile
   bug-fix:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
+    - accept ios and android lowercase as driver platformName capability when using custom grid
 "@applitools/eyes-playwright":
   feature:
+    - Support UFG for native mobile
     - |
       `runner.getAllTestResults` returns the corresponding UFG browser/device configuration for each test. This is available as `runner.getAllTestResults()[i].browserInfo`.
   bug-fix:
@@ -35,8 +39,10 @@ Apollo SDK:
       `runner.getAllTestResults` now returns all results, including aborted tests
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
+    - accept ios and android lowercase as driver platformName capability when using custom grid
 "@applitools/eyes-protractor":
   feature:
+    - Support UFG for native mobile
     - |
       `runner.getAllTestResults` returns the corresponding UFG browser/device configuration for each test. This is available as `runner.getAllTestResults()[i].browserInfo`.
   bug-fix:
@@ -46,8 +52,10 @@ Apollo SDK:
       `runner.getAllTestResults` now returns all results, including aborted tests
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
+    - accept ios and android lowercase as driver platformName capability when using custom grid
 "@applitools/eyes-puppeteer":
   feature:
+    - Support UFG for native mobile
     - |
       `runner.getAllTestResults` returns the corresponding UFG browser/device configuration for each test. This is available as `runner.getAllTestResults()[i].browserInfo`.
   bug-fix:
@@ -57,8 +65,10 @@ Apollo SDK:
       `runner.getAllTestResults` now returns all results, including aborted tests
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
+    - accept ios and android lowercase as driver platformName capability when using custom grid
 "@applitools/eyes-testcafe":
   feature:
+    - Support UFG for native mobile
     - |
       `runner.getAllTestResults` returns the corresponding UFG browser/device configuration for each test. This is available as `runner.getAllTestResults()[i].browserInfo`.
   bug-fix:
@@ -70,6 +80,7 @@ Apollo SDK:
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
 "@applitools/eyes-nightwatch":
   feature:
+    - Support UFG for native mobile
     - |
       `runner.getAllTestResults` returns the corresponding UFG browser/device configuration for each test. This is available as `runner.getAllTestResults()[i].browserInfo`.
   bug-fix:
@@ -79,12 +90,14 @@ Apollo SDK:
       `runner.getAllTestResults` now returns all results, including aborted tests
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
+    - accept ios and android lowercase as driver platformName capability when using custom grid
 "@applitools/eyes-cypress":
   feature:
     - 
   bug-fix:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
+    - add 'waitBeforeCapture' as an available type for 'Eyes.Open' and 'Eyes.Check' (for Typescript)
 "@applitools/eyes-storybook":
   feature:
     - 
@@ -92,7 +105,7 @@ Apollo SDK:
     - 
 "@applitools/eyes-webdriverio5-service":
   feature:
-    - 
+    - Support UFG for native mobile
   bug-fix:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates

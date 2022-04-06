@@ -3,6 +3,31 @@
 ## Unreleased
 
 
+
+## 2.1.1 - 2022/4/5
+
+### Features
+### Bug fixes
+- `extractText` now supports selectors provided as a string (a regression introduced in `13.1.3`)
+
+## 2.1.0 - 2022/4/5
+
+### Features
+- Support UFG for native mobile
+### Bug fixes
+
+## 2.0.4 - 2022/4/4
+
+### Features
+### Bug fixes
+- accept ios and android lowercase as driver platformName capability when using custom grid
+
+## 2.0.3 - 2022/4/4
+
+### Features
+### Bug fixes
+- accept ios and android lowercase as driver platformName capability when using custom grid
+
 ## 2.0.2 - 2022/3/30
 
 ### Features

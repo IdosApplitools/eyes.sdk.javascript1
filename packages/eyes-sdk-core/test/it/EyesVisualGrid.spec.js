@@ -58,7 +58,7 @@ describe('EyesVisualGrid', async () => {
     } = startInfo
     const {browser, renderInfo} = JSON.parse(originalRenderRequest)
     expect(browser).to.deep.equal({name: 'firefox'})
-    expect(renderInfo).to.deep.equal({width: 888, height: 777, sizeMode: 'viewport'})
+    expect(renderInfo).to.deep.equal({width: 888, height: 777, target: 'viewport'})
   })
 
   it('should not create session with missing device size', async () => {
