@@ -21,6 +21,7 @@ Apollo SDK:
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
     - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-webdriverio":
   feature:
     - Support UFG for native mobile
@@ -29,6 +30,7 @@ Apollo SDK:
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
     - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-playwright":
   feature:
     - Support UFG for native mobile
@@ -43,6 +45,7 @@ Apollo SDK:
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
     - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-protractor":
   feature:
     - Support UFG for native mobile
@@ -57,6 +60,7 @@ Apollo SDK:
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
     - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-puppeteer":
   feature:
     - Support UFG for native mobile
@@ -71,6 +75,7 @@ Apollo SDK:
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
     - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-testcafe":
   feature:
     - Support UFG for native mobile
@@ -97,6 +102,7 @@ Apollo SDK:
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
     - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-cypress":
   feature:
     - 
