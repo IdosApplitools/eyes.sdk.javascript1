@@ -10,7 +10,7 @@ Apollo SDK:
   feature:
     - 
   bug-fix:
-    - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Fixed check region fully in classic execution when using CSS stitching
 "@applitools/eyes-selenium":
   feature:
     - Support UFG for native mobile
@@ -20,7 +20,7 @@ Apollo SDK:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
-    - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Fixed check region fully in classic execution when using CSS stitching
     - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-webdriverio":
   feature:
@@ -29,7 +29,7 @@ Apollo SDK:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
-    - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Fixed check region fully in classic execution when using CSS stitching
     - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-playwright":
   feature:
@@ -44,7 +44,7 @@ Apollo SDK:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
-    - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Fixed check region fully in classic execution when using CSS stitching
     - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-protractor":
   feature:
@@ -59,7 +59,7 @@ Apollo SDK:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
-    - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Fixed check region fully in classic execution when using CSS stitching
     - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-puppeteer":
   feature:
@@ -74,7 +74,7 @@ Apollo SDK:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
-    - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Fixed check region fully in classic execution when using CSS stitching
     - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-testcafe":
   feature:
@@ -101,7 +101,7 @@ Apollo SDK:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - accept ios and android lowercase as driver platformName capability when using custom grid
-    - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Fixed check region fully in classic execution when using CSS stitching
     - Native iOS, allow capturing NavigationBar and TabBar regions
 "@applitools/eyes-cypress":
   feature:
@@ -121,14 +121,14 @@ Apollo SDK:
   bug-fix:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
-    - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Fixed check region fully in classic execution when using CSS stitching
 eyes-browser-extension:
   feature:
     - 
   bug-fix:
     - |
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
-    - Fixed check region fully in classic execution when using CSS stitching, so it does not incorrectly fallback to Scroll stitching
+    - Fixed check region fully in classic execution when using CSS stitching
 applitools-for-selenium-ide:
   feature:
     - 
