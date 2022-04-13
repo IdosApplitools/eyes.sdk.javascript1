@@ -38,7 +38,7 @@ describe('isElementScrollable', () => {
     })
   })
 
-  for (const name of ['internet explorer', 'ios safari']) {
+  for (const name of ['internet explorer', 'ios safari', 'firefox']) {
     describe(name, () => {
       let driver
 
