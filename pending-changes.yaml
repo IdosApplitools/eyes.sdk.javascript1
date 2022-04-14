@@ -111,6 +111,7 @@ Apollo SDK:
       `extractText` now supports regions that don't use hints while using `x`/`y` coordinates
     - add 'waitBeforeCapture' as an available type for 'Eyes.Open' and 'Eyes.Check' (for Typescript)
     - Support data urls in iframes
+    - update the README entry 'saveNewTests' with actual default value (true)
 "@applitools/eyes-storybook":
   feature:
     - 
