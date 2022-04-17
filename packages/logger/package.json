@@ -1,6 +1,6 @@
 {
   "name": "@applitools/logger",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Applitools logger",
   "keywords": [
     "applitools",
@@ -51,11 +51,11 @@
     }
   },
   "dependencies": {
-    "@applitools/utils": "1.2.13",
+    "@applitools/utils": "1.2.14",
     "chalk": "3.0.0"
   },
   "devDependencies": {
-    "@applitools/bongo": "^2.0.2",
+    "@applitools/bongo": "^2.0.3",
     "eslint": "^7.9.0",
     "eslint-plugin-mocha-no-only": "^1.1.1",
     "eslint-plugin-node": "^11.1.0",
