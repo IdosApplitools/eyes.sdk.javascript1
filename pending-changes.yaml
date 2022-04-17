@@ -107,7 +107,7 @@ Apollo SDK:
   feature:
     - 
   bug-fix:
-    - 
+    - update the README entry 'saveNewTests' with actual default value (true)
 "@applitools/eyes-storybook":
   feature:
     - 
