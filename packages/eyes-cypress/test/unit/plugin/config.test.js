@@ -73,4 +73,18 @@ describe('config', () => {
     expect(config.batch).to.be.undefined;
     expect(config.batchId).to.be.equal('1234');
   });
+
+  it('should not overwrite bach name from config file when passed in as an object', () => {
+      const filePath = path.join(__dirname, '../../../applitools.config.js');
+      fs.writeFileSync(filePath, "module.exports = {batch: {name: '1234'}};");
+      const {config} = makeConfig();
+      expect(config.batch.name).to.be.equal('1234');
+  });
+
+  it('should not overwrite bach name from config file when passed in as a property', () => {
+      const filePath = path.join(__dirname, '../../../applitools.config.js');
+      fs.writeFileSync(filePath, "module.exports = {batchName: '1234'};");
+      const {config} = makeConfig();
+      expect(config.batch.name).to.be.equal('1234');
+  });
 });

@@ -17,6 +17,14 @@ function eyesOpenMapValues({args, appliConfFile, testName, shouldUseBrowserHooks
       (args.batch ? args.batch.sequenceName : undefined) ||
       appliConfFile.batchSequenceName ||
       (appliConfFile.batch ? appliConfFile.batch.sequenceName : undefined),
+    properties: 
+      (args.batch ? args.batch.properties : undefined) ||
+      (appliConfFile.batch ? appliConfFile.batch.properties : undefined),
+    notifyOnCompletion: 
+      args.notifyOnCompletion ||
+      (args.batch ? args.batch.notifyOnCompletion : undefined) ||
+      appliConfFile.notifyOnCompletion ||
+      (appliConfFile.batch ? appliConfFile.batch.notifyOnCompletion : undefined)
   };
 
   if (!batch.name) {
