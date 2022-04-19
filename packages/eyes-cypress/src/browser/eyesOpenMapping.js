@@ -1,37 +1,31 @@
+const batchPropertiesRetriever = (args, appliConfFile) => {
+  return function(prop, nestedProp) {
+    nestedProp = nestedProp || prop;
+    return (
+      args[prop] ||
+      (args.batch ? args.batch[nestedProp] : undefined) ||
+      appliConfFile[prop] ||
+      (appliConfFile.batch ? appliConfFile.batch[nestedProp] : undefined)
+    );
+  };
+};
 function eyesOpenMapValues({args, appliConfFile, testName, shouldUseBrowserHooks}) {
   let browsersInfo = args.browser || appliConfFile.browser;
   let accessibilitySettings = args.accessibilityValidation || appliConfFile.accessibilityValidation;
+  const batchProperties = batchPropertiesRetriever(args, appliConfFile);
   const batch = {
-    id:
-      args.batchId ||
-      (args.batch ? args.batch.id : undefined) ||
-      appliConfFile.batchId ||
-      (appliConfFile.batch ? appliConfFile.batch.id : undefined),
-    name:
-      args.batchName ||
-      (args.batch ? args.batch.name : undefined) ||
-      appliConfFile.batchName ||
-      (appliConfFile.batch ? appliConfFile.batch.name : undefined),
-    sequenceName:
-      args.batchSequenceName ||
-      (args.batch ? args.batch.sequenceName : undefined) ||
-      appliConfFile.batchSequenceName ||
-      (appliConfFile.batch ? appliConfFile.batch.sequenceName : undefined),
-    properties: 
+    id: batchProperties('batchId', 'id'),
+    name: batchProperties('batchName', 'name'),
+    sequenceName: batchProperties('batchSequenceName', 'sequenceName'),
+    notifyOnCompletion: batchProperties('notifyOnCompletion'),
+    properties:
       (args.batch ? args.batch.properties : undefined) ||
       (appliConfFile.batch ? appliConfFile.batch.properties : undefined),
-    notifyOnCompletion: 
-      args.notifyOnCompletion ||
-      (args.batch ? args.batch.notifyOnCompletion : undefined) ||
-      appliConfFile.notifyOnCompletion ||
-      (appliConfFile.batch ? appliConfFile.batch.notifyOnCompletion : undefined)
   };
-
-  if (!batch.name) {
-    delete batch['name'];
-  }
-  if (!batch.sequenceName) {
-    delete batch['sequenceName'];
+  for (let prop in batch) {
+    if (!batch[prop]) {
+      delete batch[prop];
+    }
   }
 
   const mappedValues = [

@@ -263,7 +263,12 @@ describe('eyes open mapping', () => {
 
   it('config file batch mapping, batch obejct', () => {
     const appliConfFile = {
-      batch: {id: '1234', name: 'test config file mapping', sequenceName: 'S1'},
+      batch: {
+        id: '1234',
+        name: 'test config file mapping',
+        sequenceName: 'S1',
+        notifyOnCompletion: true,
+      },
     };
 
     const expected = {
@@ -279,7 +284,12 @@ describe('eyes open mapping', () => {
       },
       dontCloseBatches,
       testName,
-      batch: {id: '1234', name: 'test config file mapping', sequenceName: 'S1'},
+      batch: {
+        id: '1234',
+        name: 'test config file mapping',
+        sequenceName: 'S1',
+        notifyOnCompletion: true,
+      },
     };
 
     const coreConfig = eyesOpenMapValues({
