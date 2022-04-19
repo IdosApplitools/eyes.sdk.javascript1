@@ -16,7 +16,9 @@ function makeConfig() {
   });
 
   if ((!config.batch || !config.batch.id) && !config.batchId) {
-    config.batch.id = uuid.v4();
+    config.batch? config.batch.id = uuid.v4() : config.batch = {
+      id: uuid.v4(),
+    };
   }
 
   if (config.failCypressOnDiff === '0') {
