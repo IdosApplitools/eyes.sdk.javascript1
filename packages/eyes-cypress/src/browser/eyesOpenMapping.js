@@ -1,12 +1,16 @@
 const batchPropertiesRetriever = (args, appliConfFile) => {
   return function(prop, nestedProp) {
     nestedProp = nestedProp || prop;
-    return (
-      args[prop] ||
-      (args.batch ? args.batch[nestedProp] : undefined) ||
-      appliConfFile[prop] ||
-      (appliConfFile.batch ? appliConfFile.batch[nestedProp] : undefined)
-    );
+    if (args.hasOwnProperty(prop)) {
+      return args[prop];
+    } else if (args.batch && args.batch.hasOwnProperty(nestedProp)) {
+      return args.batch[nestedProp];
+    } else if (appliConfFile.hasOwnProperty(prop)) {
+      return appliConfFile[prop];
+    } else if (appliConfFile.batch && appliConfFile.batch.hasOwnProperty(nestedProp)) {
+      return appliConfFile.batch[nestedProp];
+    }
+    return undefined;
   };
 };
 function eyesOpenMapValues({args, appliConfFile, testName, shouldUseBrowserHooks}) {
@@ -23,7 +27,7 @@ function eyesOpenMapValues({args, appliConfFile, testName, shouldUseBrowserHooks
       (appliConfFile.batch ? appliConfFile.batch.properties : undefined),
   };
   for (let prop in batch) {
-    if (!batch[prop]) {
+    if (typeof batch[prop] === 'undefined') {
       delete batch[prop];
     }
   }
