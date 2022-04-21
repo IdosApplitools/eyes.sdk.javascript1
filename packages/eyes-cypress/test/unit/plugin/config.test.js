@@ -66,7 +66,7 @@ describe('config', () => {
     expect(config.batch.id).to.equal('1234');
   });
 
-  it('should not overwrite bach id from config file when passed in as a property', () => {
+  it('should not overwrite batch id from config file when passed in as a property', () => {
     const filePath = path.join(__dirname, '../../../applitools.config.js');
     fs.writeFileSync(filePath, "module.exports = {batchId: '1234'};");
     const {config} = makeConfig();
@@ -74,7 +74,7 @@ describe('config', () => {
     expect(config.batchId).to.be.equal('1234');
   });
 
-  it('should not overwrite bach name from config file when passed in as an object', () => {
+  it('should not overwrite batch name from config file when passed in as an object', () => {
     const filePath = path.join(__dirname, '../../../applitools.config.js');
     fs.writeFileSync(filePath, "module.exports = {batch: {name: '1234'}};");
     const {config} = makeConfig();
